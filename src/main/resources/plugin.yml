@@ -1,0 +1,17 @@
+name: ProjectM
+version: ${project.version}
+main: me.goowen.projectm.ProjectM
+api-version: 1.16
+authors: [goowen]
+description: This is a test build for a project currently under the title projectM
+commands:
+  chatspy:
+    description: enable or disable chatspy.
+  gamemode:
+    description: gamemode command.
+    aliases: [gm]
+  speed:
+    description: changes the speed of the player
+    aliases: [flyspeed, walkspeed]
+  fly:
+    description: changes the players ability to fly

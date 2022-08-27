@@ -1,0 +1,2 @@
+mongoURI: "mongodb+srv://goowen:admin@projectmdev.q6kea.mongodb.net/test"
+chat-distance: 50
