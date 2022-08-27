@@ -14,4 +14,6 @@ commands:
     description: changes the speed of the player
     aliases: [flyspeed, walkspeed]
   fly:
-    description: changes the players ability to fly
+    description: changes the players ability to fly.
+  back:
+    description: telports you back to the latest telport location.
