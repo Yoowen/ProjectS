@@ -1,5 +1,6 @@
 package me.goowen.projectm.modules.essentials.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,18 +19,35 @@ public class PlayerClearCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         //Check if sender has the required permissions.
-        if (!(sender.hasPermission("projectM.command.back"))) {
+        if (!(sender.hasPermission("projectM.command.clear"))) {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
             return true;
         }
 
-        if (args.length != 0) {
-            player.sendMessage(ChatColor.RED + "Wrong usage, use /back");
-            return true;
-        }
+        switch (args.length) {
+            case 0:
+                player.getInventory().clear();
+                player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- You have been cleared.");
+                return true;
+            case 1:
+                Player other = Bukkit.getPlayerExact(args[0]);
+                if (other == null) {
+                    sender.sendMessage(ChatColor.RED + "Player does not exist!");
+                    return true;
+                }
 
-        player.getInventory().clear();
-        player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- You have been cleared.");
-        return true;
+                //Check if sender has the required permissions.
+                if (!(sender.hasPermission("projectM.command.clear.other"))) {
+                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+                    return true;
+                }
+
+                other.getInventory().clear();
+                player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- Inventory of " + other.getName() + " has been cleared.");
+                return true;
+            default:
+                player.sendMessage(ChatColor.RED + "Wrong usage, use /clear");
+                return true;
+        }
     }
 }
