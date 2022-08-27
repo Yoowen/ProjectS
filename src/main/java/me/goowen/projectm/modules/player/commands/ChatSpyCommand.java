@@ -9,6 +9,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ChatSpyCommand implements CommandExecutor {
+
+    /**
+     * enables or disables the players chat spy.
+     * @param sender the entity that calls upon the command
+     * @param command the command that has been typed
+     * @param label -.
+     * @param args the arguments given with the command.
+     * @return the return will always be true.
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player))
@@ -33,11 +42,11 @@ public class ChatSpyCommand implements CommandExecutor {
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
         if (projectMPlayer.getChatSpy()) {
             projectMPlayer.setChatSpy(false);
-            sender.sendMessage(ChatColor.DARK_AQUA + "[Chat-Spy] " + ChatColor.WHITE + "Chat spy has been disabled!");
+            sender.sendMessage(ChatColor.DARK_AQUA + "Citycraft - " + ChatColor.WHITE + "Chat spy has been disabled!");
         }
         else {
             projectMPlayer.setChatSpy(true);
-            sender.sendMessage(ChatColor.DARK_AQUA + "[Chat-Spy] " + ChatColor.WHITE + "Chat spy has been enabled!");
+            sender.sendMessage(ChatColor.DARK_AQUA + "Citycraft - " + ChatColor.WHITE + "Chat spy has been enabled!");
         }
         return true;
     }

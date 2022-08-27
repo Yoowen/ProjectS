@@ -27,25 +27,48 @@ public class TimeModule {
         projectM.getLog().info(ChatColor.DARK_AQUA + "[TimeModule] De module is succesvol geladen!");
     }
 
+    /**
+     * Adds a time bossbar to the player
+     * @param player to whom the time bossbar will be added.
+     * @param time that will be set.
+     */
     public void addPlayerTimer(Player player, String time) {
         bossBarMap.put(player, Bukkit.createBossBar(ChatColor.GRAY + "(" + getLocation(player) + ")  " + ChatColor.WHITE + time + "鄟", BarColor.YELLOW, BarStyle.SOLID));
         bossBarMap.get(player).addPlayer(player);
     }
 
+    /**
+     * removes the player from the time recalculate runnable.
+     * @param player who will be removed.
+     */
     public void removePlayerTimer(Player player) {
         bossBarMap.get(player).removePlayer(player);
         bossBarMap.remove(player);
     }
 
+    /**
+     * recalculates the time of the player by resetting the players time bossbar.
+     * @param player whose time bossbar wil be changed.
+     * @param time that will be set instead of the old time.
+     */
     public void recalculateTimer(Player player, String time) {
         bossBarMap.get(player).setTitle(ChatColor.GRAY + "(" + getLocation(player) + ")  " + ChatColor.WHITE + time + "鄟");
     }
 
+    /**
+     * recalculates the time based on the time of the world.
+     * @return the time neatly formatted as it should be.
+     */
     public String calculateTime() {
+        //gets the time of the main world.
         double time = ((double) Objects.requireNonNull(Bukkit.getServer().getWorld("project m world")).getTime() / 1000) + 6;
+
+        //sets the time to 00.10 instead of 24.10 because time calculations are stupid.
         if (time >= 24) {
             time = time -24;
         }
+
+        //formatting of the time type.
         int intPart = (int) time;
         double doublePart = time - intPart;
         int timedecimal = (int) (doublePart * 60);
@@ -60,6 +83,11 @@ public class TimeModule {
         return prefixstring + intPart + ":" + suffixstring + timedecimal;
     }
 
+    /**
+     * returns the location of the player based on what region they are standing in.
+     * @param player whose location will be given.
+     * @return the location neatly formatted.
+     */
     public String getLocation(Player player) {
         for (ProtectedRegion r : Objects.requireNonNull(WGUtil.getRegionsIn(player.getLocation()))) {
             if (r.getPriority() == 3) {

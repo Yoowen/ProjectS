@@ -53,6 +53,8 @@ public class PlayerLoginListener implements Listener
         });
 
         event.setJoinMessage(null);
+
+        //sends a join message to everyone online who has the permission to see the join logs.
         for (Player other : Bukkit.getOnlinePlayers()) {
             if (other.hasPermission("OP.Log")) {
                 other.sendMessage(ChatColor.GRAY + "[OP-LOG] " + ChatColor.WHITE + event.getPlayer().getName() + " has joined the server");
@@ -60,6 +62,10 @@ public class PlayerLoginListener implements Listener
         }
     }
 
+    /**
+     * loads in the prefix of the player based on what permission group they own.
+     * @param player whose prefix will be checked.
+     */
     public void loadPrefix(Player player) {
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
         String playerPrefix = ChatColor.GRAY + PrefixType.PLAYER.getPrefix();

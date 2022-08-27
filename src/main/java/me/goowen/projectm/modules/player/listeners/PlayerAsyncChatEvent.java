@@ -12,6 +12,11 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class PlayerAsyncChatEvent implements Listener {
     private ConfigModule configModule = ProjectM.getConfigModule();
 
+    /**
+     * adds a prefix to the players chat messages and sends the message to anyone whose in range of the chat distance,
+     * or who has chatspy enabled.
+     * @param event that has been called upon.
+     */
     @EventHandler
     public void asyncPlayerChatEvent(AsyncPlayerChatEvent event) {
         event.setCancelled(true);

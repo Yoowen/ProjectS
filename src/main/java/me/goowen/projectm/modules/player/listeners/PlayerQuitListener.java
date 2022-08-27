@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class PlayerQuitListener implements Listener
 {
     PlayerLoader playerLoader = new PlayerLoader();
+
     /**
      * Slaat de speler op in de Database en verwijderd hem uit de hashmap wanneer hij of zij uitlogt.
      * @param event

@@ -9,6 +9,14 @@ import org.bukkit.entity.Player;
 
 public class PlayerClearCommand implements CommandExecutor {
 
+    /**
+     * clears the inventory of a player.
+     * @param sender the entity that calls upon the command
+     * @param command the command that has been typed
+     * @param label -.
+     * @param args the arguments given with the command.
+     * @return the return will always be true.
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //Check if sender is a player

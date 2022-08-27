@@ -7,6 +7,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuitListener implements Listener {
 
+    /**
+     * removes the player from the last teleported location hashmap if they are in it on leaving.
+     * @param event that has been called upon.
+     */
     @EventHandler
     public void onQuit(PlayerQuitEvent event)
     {
