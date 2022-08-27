@@ -26,6 +26,7 @@ public class EssentialsModule {
         projectM.getCommand("fly").setExecutor(new PlayerFlyCommand());
         projectM.getCommand("back").setExecutor(new PlayerBackCommand());
         projectM.getCommand("clear").setExecutor(new PlayerClearCommand());
+        projectM.getCommand("editinventory").setExecutor(new PlayerEditInventoryCommand());
 
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), projectM);
         Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(), projectM);

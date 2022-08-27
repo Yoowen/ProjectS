@@ -19,3 +19,6 @@ commands:
     description: telports you back to the latest telport location.
   clear:
     description: clears the player.
+  editinventory:
+    description: opens the inventory of an other player online.
+    aliases: [editinv, invopen, inventoryopen, invsee]
