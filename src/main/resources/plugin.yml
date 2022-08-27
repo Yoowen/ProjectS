@@ -17,3 +17,5 @@ commands:
     description: changes the players ability to fly.
   back:
     description: telports you back to the latest telport location.
+  clear:
+    description: clears the player.

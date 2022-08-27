@@ -2,10 +2,7 @@ package me.goowen.projectm.modules.essentials;
 
 import lombok.Getter;
 import me.goowen.projectm.ProjectM;
-import me.goowen.projectm.modules.essentials.commands.GamemodeCommand;
-import me.goowen.projectm.modules.essentials.commands.PlayerBackCommand;
-import me.goowen.projectm.modules.essentials.commands.PlayerFlyCommand;
-import me.goowen.projectm.modules.essentials.commands.PlayerSpeedCommand;
+import me.goowen.projectm.modules.essentials.commands.*;
 import me.goowen.projectm.modules.essentials.listeners.PlayerQuitListener;
 import me.goowen.projectm.modules.essentials.listeners.PlayerTeleportListener;
 import org.bukkit.Bukkit;
@@ -28,6 +25,7 @@ public class EssentialsModule {
         projectM.getCommand("speed").setExecutor(new PlayerSpeedCommand());
         projectM.getCommand("fly").setExecutor(new PlayerFlyCommand());
         projectM.getCommand("back").setExecutor(new PlayerBackCommand());
+        projectM.getCommand("clear").setExecutor(new PlayerClearCommand());
 
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), projectM);
         Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(), projectM);
