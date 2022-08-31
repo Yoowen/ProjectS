@@ -32,6 +32,10 @@ public class BlockBreakEvent implements Listener {
         }
     }
 
+    /**
+     * checks if player breaks a crate.
+     * @param event that is fired.
+     */
     @EventHandler
     public void breakCrate(org.bukkit.event.block.BlockBreakEvent event)
     {
@@ -39,7 +43,7 @@ public class BlockBreakEvent implements Listener {
         CratesModule cratesModule = ProjectM.getCratesModule();
         Player player = event.getPlayer();
         ProjectMPlayer projectMPlayer = playerModule.getPlayerDB(player);
-        if (!projectMPlayer.isSpawnEditmode() && !player.getGameMode().equals(GameMode.CREATIVE))
+        if (!projectMPlayer.isSpawnEditmode())
         {
             if (event.getBlock().getType().equals(Material.SPONGE))
             {
