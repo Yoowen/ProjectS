@@ -30,6 +30,14 @@ public class ProjectMPlayer {
     @Getter
     public Boolean chatSpy = false;
 
+    @Setter
+    @Getter
+    private boolean spawnEditmode = false;
+
+    @Setter
+    @Getter
+    private boolean cratesLog = false;
+
     public ProjectMPlayer(UUID uuid) {
         this.uuid = uuid;
     }

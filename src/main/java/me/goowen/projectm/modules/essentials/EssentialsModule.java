@@ -17,8 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EssentialsModule {
 
     private ProjectM projectM = ProjectM.getInstance();
-    @Getter
-    private Map<UUID, Location> lastTeleportedLocation = new ConcurrentHashMap<>();
+    private @Getter Map<UUID, Location> lastTeleportedLocation = new ConcurrentHashMap<>();
 
     public EssentialsModule() {
         projectM.getCommand("gamemode").setExecutor(new GamemodeCommand());

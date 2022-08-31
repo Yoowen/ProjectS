@@ -22,3 +22,5 @@ commands:
   editinventory:
     description: opens the inventory of an other player online.
     aliases: [editinv, invopen, inventoryopen, invsee]
+  crate:
+    description: opens the crate editor.
