@@ -4,7 +4,10 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import lombok.Getter;
 import lombok.Setter;
 import me.goowen.projectm.ProjectM;
+import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
 import me.goowen.projectm.modules.time.runnable.TimerRunCheck;
+import me.goowen.projectm.utilities.CharacterReplacementAdapter;
+import me.goowen.projectm.utilities.CustomBossbarAdapter;
 import me.goowen.projectm.utilities.WGUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,7 +36,10 @@ public class TimeModule {
      * @param time that will be set.
      */
     public void addPlayerTimer(Player player, String time) {
-        bossBarMap.put(player, Bukkit.createBossBar(ChatColor.GRAY + "(" + getLocation(player) + ")  " + ChatColor.WHITE + time + "鄟", BarColor.YELLOW, BarStyle.SOLID));
+        ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
+        Integer money = projectMPlayer.getMoney();
+
+        bossBarMap.put(player, Bukkit.createBossBar(ChatColor.WHITE + new CustomBossbarAdapter().getBarLength(getLocation(player)) + new CharacterReplacementAdapter().addaptForBossbar(getLocation(player)) + "     " + "ꈁ\uF811ꈇ\uF811ꈆ\uF811ꈁ\uF81A\uF819\uF814 鄟 " + new CharacterReplacementAdapter().addaptForBossbar(time) + "      " + new CustomBossbarAdapter().getBarLength(money + "뀁 ") + "뀁 " + new CharacterReplacementAdapter().addaptForBossbar(money.toString()), BarColor.YELLOW, BarStyle.SOLID));
         bossBarMap.get(player).addPlayer(player);
     }
 
@@ -52,7 +58,10 @@ public class TimeModule {
      * @param time that will be set instead of the old time.
      */
     public void recalculateTimer(Player player, String time) {
-        bossBarMap.get(player).setTitle(ChatColor.GRAY + "(" + getLocation(player) + ")  " + ChatColor.WHITE + time + "鄟");
+        ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
+        Integer money = projectMPlayer.getMoney();
+
+        bossBarMap.get(player).setTitle(ChatColor.WHITE + new CustomBossbarAdapter().getBarLength(getLocation(player)) + new CharacterReplacementAdapter().addaptForBossbar(getLocation(player)) + "     " + "ꈁ\uF811ꈇ\uF811ꈆ\uF811ꈁ\uF81A\uF819\uF814 鄟 " + new CharacterReplacementAdapter().addaptForBossbar(time) + "      " + new CustomBossbarAdapter().getBarLength(money + "뀁 ") + "뀁 " + new CharacterReplacementAdapter().addaptForBossbar(money.toString()));
     }
 
     /**
@@ -92,17 +101,18 @@ public class TimeModule {
         for (ProtectedRegion r : Objects.requireNonNull(WGUtil.getRegionsIn(player.getLocation()))) {
             if (r.getPriority() == 3) {
                 String location = r.getId().replace("_", " ");
-                return location.substring(0, 1).toUpperCase() + location.substring(1);
+                return "숡 " + location.substring(0, 1).toUpperCase() + location.substring(1);
             }
             if (r.getPriority() == 2) {
                 String location = r.getId().replace("_", " ");
-                return location.substring(0, 1).toUpperCase() + location.substring(1);
+                return "숡 " + location.substring(0, 1).toUpperCase() + location.substring(1);
             }
             if (r.getPriority() == 1) {
                 String location = r.getId().replace("_", " ");
-                return location.substring(0, 1).toUpperCase() + location.substring(1);
+                return "숡 " + location.substring(0, 1).toUpperCase() + location.substring(1);
             }
         }
-        return "Somewhere";
+        return "숡 Somewhere";
     }
+
 }

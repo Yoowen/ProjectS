@@ -34,8 +34,8 @@ public class ProjectM extends JavaPlugin {
         instance = this;
         configModule = new ConfigModule();
         mongodbModule = new MongodbModule();
-        timeModule = new TimeModule();
         playerModule = new PlayerModule();
+        timeModule = new TimeModule();
         essentialsModule = new EssentialsModule();
         cratesModule = new CratesModule();
 

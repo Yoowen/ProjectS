@@ -22,7 +22,9 @@ public class PlayerModule {
         Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(), projectM);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), projectM);
         Bukkit.getPluginManager().registerEvents(new PlayerAsyncChatEvent(), projectM);
+
         projectM.getCommand("chatspy").setExecutor(new ChatSpyCommand());
+
         projectM.getLog().info(ChatColor.DARK_AQUA + "[PlayerModule] De module is succesvol geladen!");
     }
 
