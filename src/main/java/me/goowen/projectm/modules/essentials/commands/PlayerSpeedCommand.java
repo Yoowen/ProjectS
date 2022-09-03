@@ -35,7 +35,7 @@ public class PlayerSpeedCommand implements CommandExecutor {
         float speed;
         //Check if the command has enough arguments
         switch (args.length) {
-            case 0:
+            case 1:
                 speed = Float.parseFloat(args[0]);
 
                 if (speed > 10 || speed < -10) {
@@ -52,7 +52,7 @@ public class PlayerSpeedCommand implements CommandExecutor {
                     player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- Walkspeed has been set to " + speed + ".");
                     return true;
                 }
-            case 1:
+            case 2:
                 //Checks if the player exists.
                 Player other = Bukkit.getPlayerExact(args[0]);
                 if (other == null) {
