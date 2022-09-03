@@ -4,8 +4,9 @@ public class CustomBossbarAdapter {
 
     public String getBarLength(String string) {
         String main = "";
+        int length = string.length() - countCharacters(string, ',') - countCharacters(string, '.');
 
-        switch (string.length()) {
+        switch (length) {
             case 1:
                 main = "ꈁ\uF811ꈅ\uF811ꈁ\uF811\uF817";
                 break;
@@ -83,5 +84,17 @@ public class CustomBossbarAdapter {
                 break;
         }
         return main;
+    }
+
+    public Integer countCharacters(String args, char find) {
+        int totalCharacters = 0;
+        char temp;
+        for (int i = 0; i < args.length(); i++) {
+            temp = args.charAt(i);
+            if (temp == find)
+                totalCharacters++;
+        }
+
+        return totalCharacters;
     }
 }

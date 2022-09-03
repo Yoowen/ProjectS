@@ -19,6 +19,8 @@ public class CharacterReplacementAdapter {
         //Special Signs
         bossbarString = bossbarString.replace(":", "\uE1EC");
         bossbarString = bossbarString.replace("'", "\uE1D9");
+        bossbarString = bossbarString.replace(",", "\uE1DE");
+        bossbarString = bossbarString.replace(".", "\uE1E0");
 
         //Capitol Letters
 

@@ -9,12 +9,16 @@ import me.goowen.projectm.modules.time.runnable.TimerRunCheck;
 import me.goowen.projectm.utilities.CharacterReplacementAdapter;
 import me.goowen.projectm.utilities.CustomBossbarAdapter;
 import me.goowen.projectm.utilities.WGUtil;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +43,7 @@ public class TimeModule {
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
         Integer money = projectMPlayer.getMoney();
 
-        bossBarMap.put(player, Bukkit.createBossBar(ChatColor.WHITE + new CustomBossbarAdapter().getBarLength(getLocation(player)) + new CharacterReplacementAdapter().addaptForBossbar(getLocation(player)) + "     " + "ꈁ\uF811ꈇ\uF811ꈆ\uF811ꈁ\uF81A\uF819\uF814 鄟 " + new CharacterReplacementAdapter().addaptForBossbar(time) + "      " + new CustomBossbarAdapter().getBarLength(money + "뀁 ") + "뀁 " + new CharacterReplacementAdapter().addaptForBossbar(money.toString()), BarColor.YELLOW, BarStyle.SOLID));
+        bossBarMap.put(player, Bukkit.createBossBar(ChatColor.WHITE + new CustomBossbarAdapter().getBarLength(getLocation(player)) + new CharacterReplacementAdapter().addaptForBossbar(getLocation(player)) + "     " + "ꈁ\uF811ꈇ\uF811ꈆ\uF811ꈁ\uF81A\uF819\uF814 鄟 " + new CharacterReplacementAdapter().addaptForBossbar(time) + "      " + new CustomBossbarAdapter().getBarLength(money + "뀁 ") + "뀁 " + new CharacterReplacementAdapter().addaptForBossbar(String.format("%,d", money).replace(",", ".")), BarColor.YELLOW, BarStyle.SOLID));
         bossBarMap.get(player).addPlayer(player);
     }
 
@@ -61,7 +65,7 @@ public class TimeModule {
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
         Integer money = projectMPlayer.getMoney();
 
-        bossBarMap.get(player).setTitle(ChatColor.WHITE + new CustomBossbarAdapter().getBarLength(getLocation(player)) + new CharacterReplacementAdapter().addaptForBossbar(getLocation(player)) + "     " + "ꈁ\uF811ꈇ\uF811ꈆ\uF811ꈁ\uF81A\uF819\uF814 鄟 " + new CharacterReplacementAdapter().addaptForBossbar(time) + "      " + new CustomBossbarAdapter().getBarLength(money + "뀁 ") + "뀁 " + new CharacterReplacementAdapter().addaptForBossbar(money.toString()));
+        bossBarMap.get(player).setTitle(ChatColor.WHITE + new CustomBossbarAdapter().getBarLength(getLocation(player)) + new CharacterReplacementAdapter().addaptForBossbar(getLocation(player)) + "     " + "ꈁ\uF811ꈇ\uF811ꈆ\uF811ꈁ\uF81A\uF819\uF814 鄟 " + new CharacterReplacementAdapter().addaptForBossbar(time) + "      " + new CustomBossbarAdapter().getBarLength(money + "뀁 ") + "뀁 " + new CharacterReplacementAdapter().addaptForBossbar(String.format("%,d", money).replace(",", ".")));
     }
 
     /**
@@ -101,15 +105,15 @@ public class TimeModule {
         for (ProtectedRegion r : Objects.requireNonNull(WGUtil.getRegionsIn(player.getLocation()))) {
             if (r.getPriority() == 3) {
                 String location = r.getId().replace("_", " ");
-                return "숡 " + location.substring(0, 1).toUpperCase() + location.substring(1);
+                return "숡 " +  WordUtils.capitalizeFully(location);
             }
             if (r.getPriority() == 2) {
                 String location = r.getId().replace("_", " ");
-                return "숡 " + location.substring(0, 1).toUpperCase() + location.substring(1);
+                return "숡 " +  WordUtils.capitalizeFully(location);
             }
             if (r.getPriority() == 1) {
                 String location = r.getId().replace("_", " ");
-                return "숡 " + location.substring(0, 1).toUpperCase() + location.substring(1);
+                return "숡 " +  WordUtils.capitalizeFully(location);
             }
         }
         return "숡 Somewhere";
