@@ -4,7 +4,7 @@ public class CustomBossbarAdapter {
 
     public String getBarLength(String string) {
         String main = "";
-        int length = string.length() - countCharacters(string, ',') - countCharacters(string, '.');
+        int length = string.length() - countCharacters(string, ',') - countCharacters(string, '.') - countCharacters(string, ':');
 
         switch (length) {
             case 1:

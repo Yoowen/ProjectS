@@ -38,6 +38,10 @@ public class ProjectMPlayer {
     @Getter
     private boolean cratesLog = false;
 
+    @Setter
+    @Getter
+    private long lastShotFired = System.currentTimeMillis();
+
     public ProjectMPlayer(UUID uuid) {
         this.uuid = uuid;
     }

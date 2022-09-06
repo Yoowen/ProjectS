@@ -6,6 +6,7 @@ import me.goowen.projectm.modules.crates.CratesModule;
 import me.goowen.projectm.modules.essentials.EssentialsModule;
 import me.goowen.projectm.modules.mongoDB.MongodbModule;
 import me.goowen.projectm.modules.player.PlayerModule;
+import me.goowen.projectm.modules.pvp.PvpModule;
 import me.goowen.projectm.modules.time.TimeModule;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,6 +22,7 @@ public class ProjectM extends JavaPlugin {
     public static @Getter TimeModule timeModule;
     public static @Getter EssentialsModule essentialsModule;
     public static @Getter CratesModule cratesModule;
+    public static @Getter PvpModule pvpModule;
 
     public final @Getter Logger log = this.getLogger();
     public final @Getter String prefix = ChatColor.DARK_AQUA + "[Project M]";
@@ -38,6 +40,7 @@ public class ProjectM extends JavaPlugin {
         timeModule = new TimeModule();
         essentialsModule = new EssentialsModule();
         cratesModule = new CratesModule();
+        pvpModule = new PvpModule();
 
         System.out.println(prefix + "Project M succesvol geladen! Dit prosess duurde " + (System.currentTimeMillis() - loadMS) + " ms!");
     }

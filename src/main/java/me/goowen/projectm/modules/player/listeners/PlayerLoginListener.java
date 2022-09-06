@@ -38,6 +38,7 @@ public class PlayerLoginListener implements Listener
             @Override
             public void done(ProjectMPlayer projectMPlayer) {
                 loadPrefix(event.getPlayer());
+                projectMPlayer.setLastShotFired(System.currentTimeMillis());
                 ProjectM.getTimeModule().addPlayerTimer(event.getPlayer(), ProjectM.getTimeModule().calculateTime());
             }
 
