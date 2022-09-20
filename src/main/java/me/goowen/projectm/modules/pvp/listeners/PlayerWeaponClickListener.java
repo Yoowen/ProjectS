@@ -24,6 +24,9 @@ public class PlayerWeaponClickListener implements Listener {
         }
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             ItemStack itemStack = event.getItem();
+            if (itemStack == null) {
+                return;
+            }
             ItemMeta itemMeta = Objects.requireNonNull(event.getItem()).getItemMeta();
             assert itemMeta != null;
             if (itemMeta.getPersistentDataContainer().isEmpty()) {

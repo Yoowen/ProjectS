@@ -29,3 +29,5 @@ commands:
   gun:
     description: gun command.
     aliases: [weapon]
+  lorebook:
+    description: adds a lorebook location.
