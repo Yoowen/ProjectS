@@ -3,7 +3,6 @@ package me.goowen.projectm.modules.lore.commands;
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.framework.lore.LoreBook;
 import me.goowen.projectm.modules.lore.LoreModule;
-import me.goowen.projectm.modules.player.PlayerModule;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -40,7 +39,7 @@ public class LoreBookCommand implements CommandExecutor {
             case "create":
                 //Check if command has enough arguments
                 if (args.length > 2) {
-                    sender.sendMessage(ChatColor.RED + "Wrong usage, use /lorebook <option>.");
+                    sender.sendMessage(ChatColor.RED + "Wrong usage, use /lorebook create <title>.");
                     return true;
                 }
 
@@ -56,7 +55,7 @@ public class LoreBookCommand implements CommandExecutor {
                 return true;
             case "setText":
                 if (args.length != 2) {
-                    sender.sendMessage(ChatColor.RED + "Wrong usage, use /lorebook <option>.");
+                    sender.sendMessage(ChatColor.RED + "Wrong usage, use /lorebook setText <title>.");
                     return true;
                 }
 
@@ -84,8 +83,15 @@ public class LoreBookCommand implements CommandExecutor {
                 player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- succesfully reloaded lorebooks.");
                 return true;
             default:
-                sender.sendMessage(ChatColor.RED + "Wrong usage, use /lorebook <option>.");
+                playerHelpMessage(player);
                 return true;
         }
+    }
+
+    public void playerHelpMessage(Player player) {
+        player.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Lorebook Help");
+        player.sendMessage(ChatColor.WHITE + "create : " + ChatColor.GRAY + "(Creates a lore book with a designated title at the location the player is standing.)");
+        player.sendMessage(ChatColor.WHITE + "setText : " + ChatColor.GRAY + "(Sets the text of the book a player is holding to the text of the lorebook.)");
+        player.sendMessage(ChatColor.WHITE + "reload : " + ChatColor.GRAY + "(Reloads all existing lorebooks form the database.)");
     }
 }
