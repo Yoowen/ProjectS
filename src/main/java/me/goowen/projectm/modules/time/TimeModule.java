@@ -74,7 +74,7 @@ public class TimeModule {
      */
     public String calculateTime() {
         //gets the time of the main world.
-        double time = ((double) Objects.requireNonNull(Bukkit.getServer().getWorld("project m world")).getTime() / 1000) + 6;
+        double time = ((double) Objects.requireNonNull(Bukkit.getServer().getWorld("world")).getTime() / 1000) + 6;
 
         //sets the time to 00.10 instead of 24.10 because time calculations are stupid.
         if (time >= 24) {
