@@ -5,6 +5,7 @@ import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.modules.essentials.commands.*;
 import me.goowen.projectm.modules.essentials.listeners.PlayerQuitListener;
 import me.goowen.projectm.modules.essentials.listeners.PlayerTeleportListener;
+import me.goowen.projectm.modules.essentials.tabcompleters.PlayerGamemodeCommandTabCompleter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,6 +22,7 @@ public class EssentialsModule {
 
     public EssentialsModule() {
         projectM.getCommand("gamemode").setExecutor(new GamemodeCommand());
+        projectM.getCommand("gamemode").setTabCompleter(new PlayerGamemodeCommandTabCompleter());
         projectM.getCommand("speed").setExecutor(new PlayerSpeedCommand());
         projectM.getCommand("fly").setExecutor(new PlayerFlyCommand());
         projectM.getCommand("back").setExecutor(new PlayerBackCommand());

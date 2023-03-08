@@ -37,7 +37,7 @@ public class GamemodeCommand implements CommandExecutor {
         if (args.length == 1) {
             //Checks the type of gamemode the player wants to be set to.
             String argument1 = args[0];
-            switch (argument1) {
+            switch (argument1.toLowerCase()) {
                 case "creative":
                 case "c":
                 case "1":
@@ -51,7 +51,7 @@ public class GamemodeCommand implements CommandExecutor {
                 case "survival":
                 case "s":
                 case "0":
-                    if (!(sender.hasPermission("projectM.command.survival.creative"))) {
+                    if (!(sender.hasPermission("projectM.command.gamemode.survival"))) {
                         sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
                         return true;
                     }
@@ -90,7 +90,7 @@ public class GamemodeCommand implements CommandExecutor {
             }
 
             String argument1 = args[0];
-            switch (argument1) {
+            switch (argument1.toLowerCase()) {
                 case "creative":
                 case "c":
                 case "1":
