@@ -6,19 +6,16 @@ import lombok.Setter;
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
 import me.goowen.projectm.modules.time.runnable.TimerRunCheck;
-import me.goowen.projectm.utilities.CharacterReplacementAdapter;
-import me.goowen.projectm.utilities.CustomBossbarAdapter;
-import me.goowen.projectm.utilities.WGUtil;
+import me.goowen.projectm.utilities.adapters.CharacterReplacementAdapter;
+import me.goowen.projectm.utilities.adapters.CustomBossbarAdapter;
+import me.goowen.projectm.utilities.worldguard.WorldguardUtility;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -102,17 +99,17 @@ public class TimeModule {
      * @return the location neatly formatted.
      */
     public String getLocation(Player player) {
-        for (ProtectedRegion r : Objects.requireNonNull(WGUtil.getRegionsIn(player.getLocation()))) {
-            if (r.getPriority() == 3) {
-                String location = r.getId().replace("_", " ");
+        for (ProtectedRegion region : Objects.requireNonNull(WorldguardUtility.getRegions(player.getLocation()))) {
+            if (region.getPriority() == 3) {
+                String location = region.getId().replace("_", " ");
                 return "숡 " +  WordUtils.capitalizeFully(location);
             }
-            if (r.getPriority() == 2) {
-                String location = r.getId().replace("_", " ");
+            if (region.getPriority() == 2) {
+                String location = region.getId().replace("_", " ");
                 return "숡 " +  WordUtils.capitalizeFully(location);
             }
-            if (r.getPriority() == 1) {
-                String location = r.getId().replace("_", " ");
+            if (region.getPriority() == 1) {
+                String location = region.getId().replace("_", " ");
                 return "숡 " +  WordUtils.capitalizeFully(location);
             }
         }

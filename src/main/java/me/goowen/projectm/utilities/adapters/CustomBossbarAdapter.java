@@ -1,4 +1,4 @@
-package me.goowen.projectm.utilities;
+package me.goowen.projectm.utilities.adapters;
 
 public class CustomBossbarAdapter {
 

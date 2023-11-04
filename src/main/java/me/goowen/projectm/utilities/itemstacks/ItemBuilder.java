@@ -1,13 +1,15 @@
-package me.goowen.projectm.utilities;
+package me.goowen.projectm.utilities.itemstacks;
 
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -350,6 +352,22 @@ public class ItemBuilder {
             this.is.setItemMeta(im);
         } catch (ClassCastException var5) {
         }
+
+        return this;
+    }
+
+    public ItemBuilder setNameSpacedKeyString(NamespacedKey key, String string) {
+        ItemMeta itemMeta = is.getItemMeta();
+        itemMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, string);
+        is.setItemMeta(itemMeta);
+
+        return this;
+    }
+
+    public ItemBuilder setNameSpacedKeyInterger(NamespacedKey key, Integer integer) {
+        ItemMeta itemMeta = is.getItemMeta();
+        itemMeta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, integer);
+        is.setItemMeta(itemMeta);
 
         return this;
     }
