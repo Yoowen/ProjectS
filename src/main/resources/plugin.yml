@@ -31,3 +31,7 @@ commands:
     aliases: [weapon]
   lorebook:
     description: adds a lorebook location.
+  shiv:
+    description: gives the player a shiv item.
+  plot:
+    description: a simple plot command for administrators.
