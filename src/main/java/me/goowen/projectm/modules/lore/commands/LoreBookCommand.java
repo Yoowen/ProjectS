@@ -16,6 +16,14 @@ import org.bukkit.inventory.meta.BookMeta;
 public class LoreBookCommand implements CommandExecutor {
     ProjectM projectM = ProjectM.getInstance();
 
+    /**
+     * A command to add or edit a lorebook location.
+     * @param sender the player who initiated the command.
+     * @param command the command class.
+     * @param s string of the command.
+     * @param args arguments of the command.
+     * @return true.
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
     {
@@ -54,6 +62,7 @@ public class LoreBookCommand implements CommandExecutor {
                 player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- created lore book with title " + args[1]);
                 return true;
             case "setText":
+                //Checks if command has the right amount of arguments.
                 if (args.length != 2) {
                     sender.sendMessage(ChatColor.RED + "Wrong usage, use /lorebook setText <title>.");
                     return true;
@@ -65,6 +74,7 @@ public class LoreBookCommand implements CommandExecutor {
                     return true;
                 }
 
+                //Checks if player is holding a written book.
                 if (!player.getInventory().getItemInMainHand().getType().equals(Material.WRITTEN_BOOK)) {
                     player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- please hold a written book");
                     return true;
@@ -82,6 +92,7 @@ public class LoreBookCommand implements CommandExecutor {
                 loreModule.reloadLoreBooks();
                 player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- succesfully reloaded lorebooks.");
                 return true;
+            case "help":
             default:
                 playerHelpMessage(player);
                 return true;

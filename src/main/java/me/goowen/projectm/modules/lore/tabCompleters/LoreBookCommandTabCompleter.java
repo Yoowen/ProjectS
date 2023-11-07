@@ -22,6 +22,7 @@ public class LoreBookCommandTabCompleter implements TabCompleter {
             possibleArgs.add("create");
             possibleArgs.add("setText");
             possibleArgs.add("reload");
+            possibleArgs.add("help");
 
             possibleArgs = changeByUseInput(possibleArgs, args[0]);
         }
