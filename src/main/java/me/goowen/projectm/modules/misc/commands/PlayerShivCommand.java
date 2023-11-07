@@ -39,7 +39,7 @@ public class PlayerShivCommand implements CommandExecutor {
         }
 
         MiscModule miscModule = ProjectM.getMiscModule();
-        player.getInventory().addItem(miscModule.getWrench(3));
+        player.getInventory().addItem(miscModule.getShiv(3));
         return true;
     }
 }
