@@ -1,6 +1,6 @@
 package me.goowen.projectm.modules.playerInventory.listeners;
 
-import me.goowen.projectm.utilities.ItemBuilder;
+import me.goowen.projectm.utilities.itemstacks.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;

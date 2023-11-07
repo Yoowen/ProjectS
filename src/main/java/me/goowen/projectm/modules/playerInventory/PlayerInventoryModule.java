@@ -4,7 +4,7 @@ import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.modules.playerInventory.listeners.PlayerBackpackClickEvent;
 import me.goowen.projectm.modules.playerInventory.listeners.PlayerInventoryCloseListener;
 import me.goowen.projectm.modules.playerInventory.listeners.PlayerInventoryListener;
-import me.goowen.projectm.utilities.ItemBuilder;
+import me.goowen.projectm.utilities.itemstacks.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;

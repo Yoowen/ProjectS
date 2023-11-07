@@ -7,7 +7,7 @@ import me.goowen.projectm.framework.lore.LoreBookLoader;
 import me.goowen.projectm.modules.lore.commands.LoreBookCommand;
 import me.goowen.projectm.modules.lore.listener.PlayerLorebookClickListener;
 import me.goowen.projectm.modules.lore.tabCompleters.LoreBookCommandTabCompleter;
-import me.goowen.projectm.utilities.ItemBuilder;
+import me.goowen.projectm.utilities.itemstacks.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

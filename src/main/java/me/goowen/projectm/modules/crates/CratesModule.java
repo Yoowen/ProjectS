@@ -12,7 +12,7 @@ import me.goowen.projectm.modules.crates.commands.PlayerCrateCommand;
 import me.goowen.projectm.modules.crates.listeners.BlockBreakEvent;
 import me.goowen.projectm.modules.crates.listeners.BlockPlaceEvent;
 import me.goowen.projectm.modules.crates.tabCompleters.PlayerCrateCommandTabCompleter;
-import me.goowen.projectm.utilities.ItemBuilder;
+import me.goowen.projectm.utilities.itemstacks.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
