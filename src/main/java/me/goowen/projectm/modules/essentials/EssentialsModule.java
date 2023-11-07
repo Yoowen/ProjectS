@@ -24,6 +24,8 @@ public class EssentialsModule {
         projectM.getCommand("gamemode").setExecutor(new GamemodeCommand());
         projectM.getCommand("gamemode").setTabCompleter(new PlayerGamemodeCommandTabCompleter());
         projectM.getCommand("speed").setExecutor(new PlayerSpeedCommand());
+        projectM.getCommand("feed").setExecutor(new PlayerFeedCommand());
+        projectM.getCommand("heal").setExecutor(new PlayerHealCommand());
         projectM.getCommand("fly").setExecutor(new PlayerFlyCommand());
         projectM.getCommand("back").setExecutor(new PlayerBackCommand());
         projectM.getCommand("clear").setExecutor(new PlayerClearCommand());

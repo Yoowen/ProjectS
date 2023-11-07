@@ -35,3 +35,8 @@ commands:
     description: gives the player a shiv item.
   plot:
     description: a simple plot command for administrators.
+  heal:
+    description: heals a player.
+  feed:
+    description: feeds a player.
+
