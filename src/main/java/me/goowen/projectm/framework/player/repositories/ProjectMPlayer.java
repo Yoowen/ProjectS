@@ -21,7 +21,7 @@ public class ProjectMPlayer {
 
     @Getter
     @Setter
-    public int money = 1500;
+    public int money = 250;
 
     @Setter
     @Getter
