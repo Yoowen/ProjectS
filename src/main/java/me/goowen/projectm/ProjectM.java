@@ -9,8 +9,10 @@ import me.goowen.projectm.modules.misc.MiscModule;
 import me.goowen.projectm.modules.mongoDB.MongodbModule;
 import me.goowen.projectm.modules.player.PlayerModule;
 import me.goowen.projectm.modules.playerInventory.PlayerInventoryModule;
+import me.goowen.projectm.modules.plot.PlotModule;
 import me.goowen.projectm.modules.pvp.PvpModule;
 import me.goowen.projectm.modules.time.TimeModule;
+import me.goowen.projectm.utilities.UtilitiesModule;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +23,7 @@ public class ProjectM extends JavaPlugin {
     public static @Getter ProjectM instance;
     public static @Getter ConfigModule configModule;
     public static @Getter MongodbModule mongodbModule;
+    public static @Getter UtilitiesModule utilitiesModule;
     public static @Getter PlayerModule playerModule;
     public static @Getter TimeModule timeModule;
     public static @Getter EssentialsModule essentialsModule;
@@ -29,6 +32,7 @@ public class ProjectM extends JavaPlugin {
     public static @Getter LoreModule loreModule;
     public static @Getter MiscModule miscModule;
     public static @Getter PlayerInventoryModule playerInventoryModule;
+    public static @Getter PlotModule plotModule;
 
     public final @Getter Logger log = this.getLogger();
     public final @Getter String prefix = ChatColor.DARK_AQUA + "[Project M]";
@@ -42,6 +46,7 @@ public class ProjectM extends JavaPlugin {
         instance = this;
         configModule = new ConfigModule();
         mongodbModule = new MongodbModule();
+        utilitiesModule = new UtilitiesModule();
         playerModule = new PlayerModule();
         timeModule = new TimeModule();
         essentialsModule = new EssentialsModule();
@@ -50,6 +55,7 @@ public class ProjectM extends JavaPlugin {
         loreModule = new LoreModule();
         miscModule = new MiscModule();
         playerInventoryModule = new PlayerInventoryModule();
+        plotModule = new PlotModule();
 
         System.out.println(prefix + "Project M succesvol geladen! Dit prosess duurde " + (System.currentTimeMillis() - loadMS) + " ms!");
     }

@@ -1,7 +1,6 @@
 package me.goowen.projectm.modules.playerInventory.listeners;
 
-import me.goowen.projectm.utilities.ItemBuilder;
-import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,6 +35,7 @@ public class PlayerBackpackClickEvent implements Listener {
             if (itemStack.getType() != Material.GOLDEN_HORSE_ARMOR) return;
             if (itemMeta.getCustomModelData() == 101 || itemMeta.getCustomModelData() == 102 || itemMeta.getCustomModelData() == 103) {
                 Player player = event.getPlayer();
+                if (player.getGameMode() != GameMode.SURVIVAL) return;
                 Inventory inventory = player.getInventory();
                 if (inventory.getItem(9).hasItemMeta() && inventory.getItem(9).getItemMeta().hasCustomModelData()) {
                     if (inventory.getItem(9).getItemMeta().getCustomModelData() == 3) {

@@ -32,7 +32,7 @@ public class InteractableElement extends Interactable {
         private ItemStack itemStack;
         private Consumer<InteractionData> clickConsumer;
 
-        InteractableElementBuilder() {
+        public InteractableElementBuilder() {
         }
 
         public InteractableElement.InteractableElementBuilder itemStack(ItemStack itemStack) {

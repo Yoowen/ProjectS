@@ -3,6 +3,7 @@ package me.goowen.projectm.utilities.itemstacks;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -127,14 +128,12 @@ public class ItemBuilder {
 
     /**
      * Zet de skull owner van een item.
-     *
-     * @param owner De naam van de skullowner.
      */
-    @SuppressWarnings("deprecation")
-    public ItemBuilder setSkullOwner(String owner) {
+    public ItemBuilder setSkullOwner(OfflinePlayer offlinePlayer) {
         try {
             SkullMeta im = (SkullMeta) is.getItemMeta();
-            im.setOwner(owner);
+            assert im != null;
+            im.setOwningPlayer(offlinePlayer);
             is.setItemMeta(im);
         } catch (ClassCastException expected) {
         }

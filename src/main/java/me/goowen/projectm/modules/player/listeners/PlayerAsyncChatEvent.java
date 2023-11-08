@@ -19,8 +19,10 @@ public class PlayerAsyncChatEvent implements Listener {
      */
     @EventHandler
     public void asyncPlayerChatEvent(AsyncPlayerChatEvent event) {
+        if (event.isCancelled()) return;
         event.setCancelled(true);
         Player player = event.getPlayer();
+        if(player.getScoreboardTags().contains("chat_message_add_player_to_plot")) return;
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
 
         player.getLocation().getWorld().getPlayers().forEach((p)-> {

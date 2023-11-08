@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import me.goowen.projectm.ProjectM;
 
 import java.util.UUID;
 
@@ -40,9 +41,31 @@ public class ProjectMPlayer {
 
     @Setter
     @Getter
+    private boolean plotLost = false;
+
+    @Setter
+    @Getter
+    private boolean plotRentPayed = false;
+
+    @Setter
+    @Getter
     private long lastShotFired = System.currentTimeMillis();
 
     public ProjectMPlayer(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public void removeMoney(Integer amount) {
+        this.money = this.money - amount;
+        save();
+    }
+
+    public void addMoney(Integer amount) {
+        this.money = this.money + amount;
+        save();
+    }
+
+    public void save() {
+        ProjectM.getPlayerModule().getPlayerLoader().savePlayer(this);
     }
 }

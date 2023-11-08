@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerLoginListener implements Listener
 {
-    PlayerLoader playerLoader = new PlayerLoader();
 
     /**
      * Laat de Speler in vanuit de database wanneer de speler klaar is met inladen roept hij het AfterLogin Event aan.
@@ -24,7 +23,7 @@ public class PlayerLoginListener implements Listener
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerJoinEvent event)
     {
-        playerLoader.load(event.getPlayer(), new LoadingPlayer() {
+        ProjectM.getPlayerModule().getPlayerLoader().load(event.getPlayer(), new LoadingPlayer() {
             @Override
             public void waiting() {
 
