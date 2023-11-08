@@ -1,0 +1,63 @@
+package me.goowen.projectm.modules.player.commands;
+
+import me.goowen.projectm.ProjectM;
+import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public class ChatStaffCommand implements CommandExecutor {
+    /**
+     * enables or disables the players staffchat.
+     * @param sender the entity that calls upon the command
+     * @param command the command that has been typed
+     * @param label -.
+     * @param args the arguments given with the command.
+     * @return the return will always be true.
+     */
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!(sender instanceof Player))
+        {
+            sender.sendMessage(ChatColor.RED + "Only a player can use this command");
+            return true;
+        }
+
+        if (!(sender.hasPermission("projectM.command.staffchat")))
+        {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+            return true;
+        }
+
+        Player player = (Player) sender;
+        ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
+        if (args.length == 0)
+        {
+            if (projectMPlayer.isStaffChat()) {
+                projectMPlayer.setStaffChat(false);
+                sender.sendMessage(ChatColor.DARK_AQUA + "Citycraft - " + ChatColor.WHITE + "Staffchat has been disabled!");
+            }
+            else {
+                projectMPlayer.setStaffChat(true);
+                sender.sendMessage(ChatColor.DARK_AQUA + "Citycraft - " + ChatColor.WHITE + "Staffchat has been enabled!");
+            }
+            return true;
+        } else {
+            StringBuilder staffChatMessage = new StringBuilder();
+            for (String arg : args) {
+                staffChatMessage.append(arg).append(" ");
+            }
+
+            Bukkit.getOnlinePlayers().forEach((p)-> {
+                ProjectMPlayer onlinePlayer = ProjectM.getPlayerModule().getPlayerDB(p);
+                if (onlinePlayer.isStaffChat()) {
+                    p.sendMessage(ChatColor.WHITE + "셢 | " + player.getName() + ": " + staffChatMessage);
+                }
+            });
+        }
+        return true;
+    }
+}

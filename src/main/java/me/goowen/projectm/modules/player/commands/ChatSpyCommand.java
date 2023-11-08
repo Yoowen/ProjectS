@@ -40,7 +40,7 @@ public class ChatSpyCommand implements CommandExecutor {
 
         Player player = (Player) sender;
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
-        if (projectMPlayer.getChatSpy()) {
+        if (projectMPlayer.isChatSpy()) {
             projectMPlayer.setChatSpy(false);
             sender.sendMessage(ChatColor.DARK_AQUA + "Citycraft - " + ChatColor.WHITE + "Chat spy has been disabled!");
         }

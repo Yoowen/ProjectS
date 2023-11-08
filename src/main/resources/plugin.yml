@@ -39,4 +39,6 @@ commands:
     description: heals a player.
   feed:
     description: feeds a player.
+  staffchat:
+    description: staffchat command
 

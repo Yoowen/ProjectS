@@ -29,7 +29,11 @@ public class ProjectMPlayer {
 
     @Setter
     @Getter
-    public Boolean chatSpy = false;
+    public boolean chatSpy = false;
+
+    @Setter
+    @Getter
+    public boolean staffChat = false;
 
     @Setter
     @Getter
