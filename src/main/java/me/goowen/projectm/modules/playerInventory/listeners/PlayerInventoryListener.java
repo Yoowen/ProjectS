@@ -1,5 +1,6 @@
 package me.goowen.projectm.modules.playerInventory.listeners;
 
+import me.goowen.projectm.framework.player.inventories.PlayerStatsInventory;
 import me.goowen.projectm.utilities.itemstacks.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -18,7 +19,6 @@ public class PlayerInventoryListener implements Listener {
     public void inventoryClickEvent(InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player) {
             if (event.getClickedInventory() == null) return;
-            if (!event.getClickedInventory().getType().equals(InventoryType.PLAYER)) return;
 
             Player player = (Player) event.getWhoClicked();
             ItemStack item = event.getCurrentItem();
@@ -33,6 +33,11 @@ public class PlayerInventoryListener implements Listener {
             if (item.getType() == Material.BRICK) {
                 if (itemMeta.getCustomModelData() == 1 || itemMeta.getCustomModelData() == 2 || itemMeta.getCustomModelData() == 3) {
                     event.setCancelled(true);
+                    if (event.getSlot() == 12) {
+                        player.closeInventory();
+                        new PlayerStatsInventory().open(player);
+                    }
+
                 } else if (itemMeta.getCustomModelData() == 101 || itemMeta.getCustomModelData() == 102 || itemMeta.getCustomModelData() == 103) {
                     event.setCancelled(true);
                     ItemStack newItemStack = item.clone();
