@@ -31,7 +31,7 @@ public class PlotOwnerInfoInventory extends FixedInventory {
     private final List<Integer> SLOTS = Arrays.asList(6, 7, 15, 16, 24, 25);
 
     public PlotOwnerInfoInventory(Plot plot) {
-        super(36, ChatColor.WHITE + "\uF818\uF811셙");
+        super(27, ChatColor.WHITE + "\uF818\uF811셙");
         this.plot = plot;
     }
 
