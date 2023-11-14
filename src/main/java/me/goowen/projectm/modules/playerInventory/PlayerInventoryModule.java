@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
 
 public class PlayerInventoryModule {
     private final ProjectM projectM = ProjectM.getInstance();
-    private final List<Integer> NONINVENTORYSLOTS = IntStream.builder().add(10).add(11).add(13).add(14).add(15).add(16).add(17).build().boxed().collect(Collectors.toList());
+    private final List<Integer> NONINVENTORYSLOTS = IntStream.builder().add(10).add(11).add(12).add(13).add(14).add(15).add(16).build().boxed().collect(Collectors.toList());
 
     private final List<Integer> TIER0 = IntStream.builder().add(21).add(22).add(30).add(31).add(23).add(24).add(32).add(33).add(25).add(26).add(34).add(35).build().boxed().collect(Collectors.toList());
     private final List<Integer> TIER1 = IntStream.builder().add(23).add(24).add(32).add(33).add(25).add(26).add(34).add(35).build().boxed().collect(Collectors.toList());
@@ -42,7 +42,7 @@ public class PlayerInventoryModule {
             inventory.setItem(noInventoryslot, new ItemBuilder(Material.BRICK).setCustomModelData(1).setName(ChatColor.GRAY + "Unavailable").hideAttributes(true).toItemStack());
         }
 
-        inventory.setItem(12, new ItemBuilder(Material.BRICK).setCustomModelData(1).setName(ChatColor.of("#5aa64c") + "Player Info").hideAttributes(true).toItemStack());
+        inventory.setItem(17, new ItemBuilder(Material.BRICK).setCustomModelData(1).setName(ChatColor.of("#5aa64c") + "Player Info").hideAttributes(true).toItemStack());
 
         if (inventory.getItem(9) == null) {
             setLockedSlots(player, inventory, TIER0);

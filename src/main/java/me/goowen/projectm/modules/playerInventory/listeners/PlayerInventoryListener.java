@@ -33,7 +33,7 @@ public class PlayerInventoryListener implements Listener {
             if (item.getType() == Material.BRICK) {
                 if (itemMeta.getCustomModelData() == 1 || itemMeta.getCustomModelData() == 2 || itemMeta.getCustomModelData() == 3) {
                     event.setCancelled(true);
-                    if (event.getSlot() == 12) {
+                    if (event.getSlot() == 17) {
                         player.closeInventory();
                         new PlayerStatsInventory().open(player);
                     }
