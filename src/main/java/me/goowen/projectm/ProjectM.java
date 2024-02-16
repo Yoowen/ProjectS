@@ -3,6 +3,7 @@ package me.goowen.projectm;
 import lombok.Getter;
 import me.goowen.projectm.modules.config.ConfigModule;
 import me.goowen.projectm.modules.crates.CratesModule;
+import me.goowen.projectm.modules.currency.CurrencyModule;
 import me.goowen.projectm.modules.essentials.EssentialsModule;
 import me.goowen.projectm.modules.lore.LoreModule;
 import me.goowen.projectm.modules.misc.MiscModule;
@@ -33,6 +34,7 @@ public class ProjectM extends JavaPlugin {
     public static @Getter MiscModule miscModule;
     public static @Getter PlayerInventoryModule playerInventoryModule;
     public static @Getter PlotModule plotModule;
+    public static @Getter CurrencyModule currencyModule;
 
     public final @Getter Logger log = this.getLogger();
     public final @Getter String prefix = ChatColor.DARK_AQUA + "[Project M]";
@@ -56,6 +58,7 @@ public class ProjectM extends JavaPlugin {
         miscModule = new MiscModule();
         playerInventoryModule = new PlayerInventoryModule();
         plotModule = new PlotModule();
+        currencyModule = new CurrencyModule();
 
         System.out.println(prefix + "Project M succesvol geladen! Dit prosess duurde " + (System.currentTimeMillis() - loadMS) + " ms!");
     }
