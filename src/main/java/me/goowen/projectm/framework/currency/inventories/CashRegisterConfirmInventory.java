@@ -1,9 +1,9 @@
 package me.goowen.projectm.framework.currency.inventories;
 
 import me.goowen.projectm.ProjectM;
-import me.goowen.projectm.framework.currency.ExchangeRequest;
 import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
 import me.goowen.projectm.utilities.UIBuilder.dataTypes.InteractionData;
+import me.goowen.projectm.utilities.UIBuilder.elements.EmptyElement;
 import me.goowen.projectm.utilities.UIBuilder.elements.InteractableElement;
 import me.goowen.projectm.utilities.UIBuilder.inventoryTypes.FixedInventory;
 import me.goowen.projectm.utilities.adapters.CharacterReplacementAdapter;
@@ -15,14 +15,15 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
 
-public class CurrencyExchangeConfirmInventory extends FixedInventory {
-    ExchangeRequest paymentRequest;
+public class CashRegisterConfirmInventory extends FixedInventory {
+    PaymentRequest paymentRequest;
 
-    public CurrencyExchangeConfirmInventory(ExchangeRequest paymentRequest) {
-        super(9, ChatColor.WHITE + "\uF818\uF811션\uF818\uF818\uF818\uF818\uF818");
+    public CashRegisterConfirmInventory(PaymentRequest paymentRequest) {
+        super(9, ChatColor.WHITE + "\uF818\uF811ꌁ");
         this.paymentRequest = paymentRequest;
     }
 
@@ -32,20 +33,20 @@ public class CurrencyExchangeConfirmInventory extends FixedInventory {
      */
     @Override
     public void open(Player player) {
+        addElement(1, new EmptyElement(paymentRequest.getItemStack()));
+
         //Adds the confirmation button for confirming to exchange a currency amount
         ItemStack confirm = new ItemBuilder(Material.BRICK).setCustomModelData(1)
                 .setName(ChatColor.of("#5aa64c") + "Confirm Payment")
                 .addLoreLine(ChatColor.GRAY + "Requester: " + ChatColor.WHITE + paymentRequest.getRequester().getName())
                 .addLoreLine(ChatColor.GRAY + "Amount: " + ChatColor.WHITE + "€" + paymentRequest.getAmount()).toItemStack();
-        addElement(1, new InteractableElement(confirm, this::confirmPayment));
-        addElement(2, new InteractableElement(confirm, this::confirmPayment));
         addElement(3, new InteractableElement(confirm, this::confirmPayment));
+        addElement(4, new InteractableElement(confirm, this::confirmPayment));
 
         //Adds a confirmation button for canceling to exchange a currency amount
         ItemStack deny = new ItemBuilder(Material.BRICK).setCustomModelData(1)
                 .setName(ChatColor.of("#b54747") + "Deny Payment")
                 .addLoreLine(ChatColor.GRAY + "Click to deny Payment.").toItemStack();
-        addElement(5, new InteractableElement(deny, this::denyPayment));
         addElement(6, new InteractableElement(deny, this::denyPayment));
         addElement(7, new InteractableElement(deny, this::denyPayment));
 
@@ -62,7 +63,7 @@ public class CurrencyExchangeConfirmInventory extends FixedInventory {
         Player onlinePlayer = paymentRequest.getRequester();
         ProjectMPlayer receiver = ProjectM.getPlayerModule().getPlayerDB(interactionData.getPlayer());
         ProjectMPlayer requester = ProjectM.getPlayerModule().getPlayerDB(paymentRequest.getRequester());
-        ProjectM.getCurrencyModule().getExchangeRequestList().remove(paymentRequest);
+        ProjectM.getCurrencyModule().getPaymentRequestList().remove(paymentRequest);
 
         //Checks if player has enough money to purchase a plot.
         if (receiver.getMoney() < paymentRequest.getAmount()) {
@@ -75,6 +76,9 @@ public class CurrencyExchangeConfirmInventory extends FixedInventory {
 
         receiver.removeMoney(paymentRequest.getAmount());
         requester.addMoney(paymentRequest.getAmount());
+        player.getInventory().addItem(paymentRequest.getItemStack());
+        player.updateInventory();
+        paymentRequest.setPaymentSucceeded(true);
 
         String paymentCompleted = ChatColor.WHITE + "Payment has been Completed";
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(paymentCompleted) + new CharacterReplacementAdapter().addaptForBossbar(paymentCompleted)));
@@ -87,13 +91,32 @@ public class CurrencyExchangeConfirmInventory extends FixedInventory {
     }
 
     /**
-     * denies the currency exchange
+     * Sets the move out status to false.
      * @param interactionData of an inventory click event.
      */
     public void denyPayment(InteractionData interactionData) {
         Player player = interactionData.getPlayer();
-        ProjectM.getCurrencyModule().getExchangeRequestList().remove(paymentRequest);
+        ProjectM.getCurrencyModule().getPaymentRequestList().remove(paymentRequest);
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+
+        Player onlinePlayer = paymentRequest.getRequester();
+        String paymentFailed = ChatColor.WHITE + "Payment has failed";
+        onlinePlayer.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(paymentFailed) + new CharacterReplacementAdapter().addaptForBossbar(paymentFailed)));
+        onlinePlayer.getInventory().addItem(paymentRequest.getItemStack());
+        onlinePlayer.updateInventory();
+
         player.closeInventory();
+    }
+
+    @Override
+    public void onClose(InventoryCloseEvent event) {
+        if (!paymentRequest.isPaymentSucceeded()) {
+            ProjectM.getCurrencyModule().getPaymentRequestList().remove(paymentRequest);
+            Player onlinePlayer = paymentRequest.getRequester();
+            String paymentFailed = ChatColor.WHITE + "Payment has failed";
+            onlinePlayer.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(paymentFailed) + new CharacterReplacementAdapter().addaptForBossbar(paymentFailed)));
+            onlinePlayer.getInventory().addItem(paymentRequest.getItemStack());
+            onlinePlayer.updateInventory();
+        }
     }
 }

@@ -2,8 +2,12 @@ package me.goowen.projectm.modules.currency.listeners;
 
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.framework.currency.ExchangeRequest;
-import me.goowen.projectm.framework.currency.inventories.CurrencyExchangeConfirmInventory;
-import me.goowen.projectm.framework.currency.inventories.CurrencyExchangeSelectInventory;
+import me.goowen.projectm.framework.currency.inventories.*;
+import me.goowen.projectm.utilities.adapters.CharacterReplacementAdapter;
+import me.goowen.projectm.utilities.adapters.CustomBossbarAdapter;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -60,15 +64,33 @@ public class PlayerBlockClickListener implements Listener {
                 assert itemMeta != null;
                 if (!itemMeta.hasCustomModelData()) return;
 
-                //Opens the right exchangeEvent.
+                //Opens the right exchange UI.
                 if (entity.getCustomName().equals("furniture_currency_exchange")) {
-                    if (ProjectM.getCurrencyModule().isReceiver(player)) {
-                        if (ProjectM.getCurrencyModule().getPaymentRequest(player).isEmpty()) return;
-                        ExchangeRequest paymentRequest = ProjectM.getCurrencyModule().getPaymentRequest(player).get();
+                    if (ProjectM.getCurrencyModule().isExchangeRequestReceiver(player)) {
+                        if (ProjectM.getCurrencyModule().getExchangeRequest(player).isEmpty()) return;
+                        ExchangeRequest paymentRequest = ProjectM.getCurrencyModule().getExchangeRequest(player).get();
                         new CurrencyExchangeConfirmInventory(paymentRequest).open(player);
                         return;
                     }
+                    if (ProjectM.getCurrencyModule().isExchangeRequestRequester(player)) return;
                     new CurrencyExchangeSelectInventory().open(player);
+                }
+
+                //Opens the right payment UI.
+                if (entity.getCustomName().equals("furniture_cash_register")) {
+                    if (ProjectM.getCurrencyModule().isPaymentRequestReceiver(player)) {
+                        if (ProjectM.getCurrencyModule().getPaymentRequest(player).isEmpty()) return;
+                        PaymentRequest paymentRequest = ProjectM.getCurrencyModule().getPaymentRequest(player).get();
+                        new CashRegisterConfirmInventory(paymentRequest).open(player);
+                        return;
+                    }
+                    if (ProjectM.getCurrencyModule().isPaymentRequestRequester(player)) return;
+                    if (player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
+                        String holdItemString = ChatColor.WHITE + "Please hold an item in your main hand.";
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(holdItemString) + new CharacterReplacementAdapter().addaptForBossbar(holdItemString)));
+                        return;
+                    }
+                    new CashRegisterSelectInventory().open(player);
                 }
             }
         }

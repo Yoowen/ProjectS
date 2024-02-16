@@ -3,6 +3,7 @@ package me.goowen.projectm.framework.currency.inventories;
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.modules.config.ConfigModule;
 import me.goowen.projectm.utilities.UIBuilder.dataTypes.InteractionData;
+import me.goowen.projectm.utilities.UIBuilder.elements.EmptyElement;
 import me.goowen.projectm.utilities.UIBuilder.elements.InteractableElement;
 import me.goowen.projectm.utilities.UIBuilder.inventoryTypes.FixedInventory;
 import me.goowen.projectm.utilities.adapters.CharacterReplacementAdapter;
@@ -19,20 +20,23 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 import java.util.List;
 
-public class CurrencyExchangeSelectInventory extends FixedInventory {
-    private final List<Integer> SLOTS = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+public class CashRegisterSelectInventory extends FixedInventory {
+    private final List<Integer> SLOTS = Arrays.asList(3, 4, 5, 6, 7);
     private ConfigModule configModule = ProjectM.getConfigModule();
 
-    public CurrencyExchangeSelectInventory() {
-        super(9, ChatColor.WHITE + "\uF818\uF811ꈍ");
+    public CashRegisterSelectInventory() {
+        super(9, ChatColor.WHITE + "\uF818\uF811ꈎ");
     }
 
     /**
-     * Opens the currency exchange selector inventory.
-     * @param player who opens the currency exchange inventory.
+     * Opens the cash register selector inventory.
+     * @param player who opens the cash register inventory.
      */
     @Override
     public void open(Player player) {
+
+        addElement(1, new EmptyElement(player.getInventory().getItemInMainHand()));
+
         //Gets all players in the players world.
         player.getLocation().getWorld().getPlayers().forEach((onlinePlayer)-> {
             if (!ProjectM.getCurrencyModule().isExchangeRequestReceiver(onlinePlayer) && !onlinePlayer.equals(player))  {
@@ -65,10 +69,21 @@ public class CurrencyExchangeSelectInventory extends FixedInventory {
     public void sendPaymentRequest(InteractionData interactionData, Player onlinePlayer) {
         Player player = interactionData.getPlayer();
 
+        if (!player.getInventory().getItemInMainHand().equals(this.getInventory().getItem(1))) {
+            String paymentFailed = ChatColor.WHITE + "Payment Request failed";
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(paymentFailed) + new CharacterReplacementAdapter().addaptForBossbar(paymentFailed)));
+            player.closeInventory();
+            return;
+        }
+
         //Adds the player to the paymentrequestmap.
-        ProjectM.getCurrencyModule().getSendExchangeReceiverMap().remove(player);
-        ProjectM.getCurrencyModule().getSendExchangeReceiverMap().put(player, onlinePlayer);
-        player.addScoreboardTag("chat_message_send_payment_request");
+        ProjectM.getCurrencyModule().getSendPaymentReceiverMap().remove(player);
+        ProjectM.getCurrencyModule().getSendPaymentItemMap().remove(player);
+        ProjectM.getCurrencyModule().getSendPaymentReceiverMap().put(player, onlinePlayer);
+        ProjectM.getCurrencyModule().getSendPaymentItemMap().put(player, player.getInventory().getItemInMainHand());
+        player.getInventory().setItemInMainHand(null);
+        player.updateInventory();
+        player.addScoreboardTag("chat_message_send_cash_register_request");
 
         //Sends a reminder to type the amount in the chat.
         String removePlayerString = ChatColor.WHITE + "Please typ the amount of money in the chat.";
