@@ -1,3 +1,4 @@
 mongoURI: "mongodb+srv://Archantion:fWEMbkuLmPeSkM5f@projectmdevelopment.6fb1c8n.mongodb.net/test"
 chat-distance: 50
 crate-amount: 3
+cash-register-distance: 10

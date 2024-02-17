@@ -215,6 +215,13 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder resetLore() {
+        ItemMeta im = is.getItemMeta();
+        im.setLore(null);
+        is.setItemMeta(im);
+        return this;
+    }
+
     /**
      * voegt een lore lijn toe.
      *
