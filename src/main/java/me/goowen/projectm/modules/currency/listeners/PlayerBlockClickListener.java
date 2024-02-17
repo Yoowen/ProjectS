@@ -15,6 +15,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -32,7 +33,7 @@ public class PlayerBlockClickListener implements Listener {
      * Opens the right exchangeUI corresponding to the player who clicks.
      * @param event that is fired.
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockRightClick(PlayerInteractEvent event) {
         //Basic interact event checks.
         if (event.isCancelled()) return;
@@ -66,6 +67,7 @@ public class PlayerBlockClickListener implements Listener {
 
                 //Opens the right exchange UI.
                 if (entity.getCustomName().equals("furniture_currency_exchange")) {
+                    event.setCancelled(true);
                     if (ProjectM.getCurrencyModule().isExchangeRequestReceiver(player)) {
                         if (ProjectM.getCurrencyModule().getExchangeRequest(player).isEmpty()) return;
                         ExchangeRequest paymentRequest = ProjectM.getCurrencyModule().getExchangeRequest(player).get();
@@ -78,6 +80,7 @@ public class PlayerBlockClickListener implements Listener {
 
                 //Opens the right payment UI.
                 if (entity.getCustomName().equals("furniture_cash_register")) {
+                    event.setCancelled(true);
                     if (ProjectM.getCurrencyModule().isPaymentRequestReceiver(player)) {
                         if (ProjectM.getCurrencyModule().getPaymentRequest(player).isEmpty()) return;
                         PaymentRequest paymentRequest = ProjectM.getCurrencyModule().getPaymentRequest(player).get();
