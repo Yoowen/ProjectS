@@ -7,15 +7,17 @@ import org.bukkit.ChatColor;
 public class ConfigModule
 {
     private @Getter Config config;
+    private @Getter Config xpList;
 
     private ProjectM projectM = ProjectM.getInstance();
 
     /**
-     * Maakt de Spawns.yml en kits.yml aan en geeft de instance van de classes!
+     * Maakt de config.yml aan en geeft de instance van de classes!
      */
     public ConfigModule()
     {
         this.config = new Config("config.yml");
+        this.xpList = new Config("xpList.yml");
         projectM.getLog().info(ChatColor.DARK_AQUA + "[ConfigModule] De module is succesvol geladen!");
     }
 }

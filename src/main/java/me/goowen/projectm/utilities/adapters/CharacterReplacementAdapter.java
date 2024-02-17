@@ -22,6 +22,8 @@ public class CharacterReplacementAdapter {
         bossbarString = bossbarString.replace(",", "\uE1DE");
         bossbarString = bossbarString.replace(".", "\uE1E0");
         bossbarString = bossbarString.replace("/", "\uE1E1");
+        bossbarString = bossbarString.replace("!", "\uE1D3");
+        bossbarString = bossbarString.replace("+", "\uE1DD");
 
         //Capitol Letters
 

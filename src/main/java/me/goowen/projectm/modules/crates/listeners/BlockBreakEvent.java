@@ -2,6 +2,7 @@ package me.goowen.projectm.modules.crates.listeners;
 
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
+import me.goowen.projectm.modules.config.ConfigModule;
 import me.goowen.projectm.modules.crates.CratesModule;
 import me.goowen.projectm.modules.player.PlayerModule;
 import org.bukkit.Bukkit;
@@ -13,6 +14,7 @@ import org.bukkit.event.Listener;
 
 public class BlockBreakEvent implements Listener {
     private ProjectM projectM = ProjectM.getInstance();
+    private ConfigModule configModule = ProjectM.getConfigModule();
 
     @EventHandler
     public void removeOldSpawn(org.bukkit.event.block.BlockBreakEvent event)
@@ -53,6 +55,7 @@ public class BlockBreakEvent implements Listener {
                     event.getBlock().getLocation().getWorld().dropItemNaturally(event.getBlock().getLocation(), cratesModule.randomLoot());
                     return;
                 }
+                playerModule.addXP(player, configModule.getXpList().getConfigConfiguration().getInt("crate-xp"));
                 player.getInventory().addItem(cratesModule.randomLoot());
             }
         }

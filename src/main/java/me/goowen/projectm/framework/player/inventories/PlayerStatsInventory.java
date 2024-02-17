@@ -26,7 +26,11 @@ public class PlayerStatsInventory extends FixedInventory {
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
         //Adds the confirmation button for confirming to move out of a plot.
         ItemStack stats = new ItemBuilder(Material.PLAYER_HEAD).setCustomModelData(1).setSkullOwner(player)
-                .addLoreLine(ChatColor.GRAY + "money: " + ChatColor.WHITE + "€ " + projectMPlayer.getMoney())
+                .addLoreLine(ChatColor.GRAY + "Money: " + ChatColor.WHITE + "€ " + projectMPlayer.getMoney())
+                .addLoreLine(" ")
+                .addLoreLine(ChatColor.GRAY + "Level: " + ChatColor.WHITE + projectMPlayer.getCurrentLevel())
+                .addLoreLine(ChatColor.GRAY + "Survivor Points: " + ChatColor.WHITE + projectMPlayer.getSurvivorPoints())
+                .addLoreLine(ChatColor.GRAY + "Skill Points: " + ChatColor.WHITE + projectMPlayer.getSkillPoints())
                 .setName(ChatColor.of("#20b4b6") + player.getName() + "'s Stats").toItemStack();
         addElement(2, new EmptyElement(stats));
 

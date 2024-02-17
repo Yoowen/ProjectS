@@ -9,6 +9,8 @@ import me.goowen.projectm.modules.time.runnable.TimerRunCheck;
 import me.goowen.projectm.utilities.adapters.CharacterReplacementAdapter;
 import me.goowen.projectm.utilities.adapters.CustomBossbarAdapter;
 import me.goowen.projectm.utilities.worldguard.WorldguardUtility;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -61,6 +63,11 @@ public class TimeModule {
     public void recalculateTimer(Player player, String time) {
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
         Integer money = projectMPlayer.getMoney();
+        if (time.equalsIgnoreCase("07:00")) {
+            projectMPlayer.addMoney(10 + (projectMPlayer.getCurrentLevel() / 2));
+            String salary = ChatColor.WHITE + "New Day: + € " + (10 + (projectMPlayer.getCurrentLevel() / 2));
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(salary) + new CharacterReplacementAdapter().addaptForBossbar(salary)));
+        }
 
         bossBarMap.get(player).setTitle(ChatColor.WHITE + new CustomBossbarAdapter().getBarLength(getLocation(player)) + new CharacterReplacementAdapter().addaptForBossbar(getLocation(player)) + "     " + "ꈁ\uF811ꈇ\uF811ꈆ\uF811ꈁ\uF81A\uF819\uF814 鄟 " + new CharacterReplacementAdapter().addaptForBossbar(time) + "      " + new CustomBossbarAdapter().getBarLength(money + "뀁 ") + "뀁 " + new CharacterReplacementAdapter().addaptForBossbar(String.format("%,d", money).replace(",", ".")));
     }

@@ -55,6 +55,22 @@ public class ProjectMPlayer {
     @Getter
     private long lastShotFired = System.currentTimeMillis();
 
+    @Setter
+    @Getter
+    private int currentXP = 0;
+
+    @Setter
+    @Getter
+    private int currentLevel = 0;
+
+    @Setter
+    @Getter
+    private int survivorPoints = 0;
+
+    @Setter
+    @Getter
+    private int skillPoints = 0;
+
     public ProjectMPlayer(UUID uuid) {
         this.uuid = uuid;
     }

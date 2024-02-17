@@ -26,6 +26,7 @@ public class OtherStatsInventory extends FixedInventory {
         //Adds the confirmation button for confirming to move out of a plot.
         ItemStack stats = new ItemBuilder(Material.PLAYER_HEAD).setCustomModelData(1).setSkullOwner(other)
                 .addLoreLine(ChatColor.GRAY + "money: " + ChatColor.WHITE + "€ " + projectMPlayer.getMoney())
+                .addLoreLine(ChatColor.GRAY + "Level: " + ChatColor.WHITE + projectMPlayer.getCurrentLevel())
                 .setName(ChatColor.of("#20b4b6") + player.getName() + "'s Stats").toItemStack();
         addElement(4, new EmptyElement(stats));
 

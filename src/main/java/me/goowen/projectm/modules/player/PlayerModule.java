@@ -50,4 +50,41 @@ public class PlayerModule {
         }
         return playerLoader.load(player).join();
     }
+
+    /**
+     * Adds a certain amount of xp to a player.
+     * @param player who receives the xp amount
+     * @param amount of xp received.
+     */
+    public void addXP(Player player, Integer amount) {
+        ProjectMPlayer projectMPlayer = getPlayerDB(player);
+
+        int newXP = projectMPlayer.getCurrentXP() + amount;
+        int maxXP = (((projectMPlayer.getCurrentLevel() + 1)*200) * ((projectMPlayer.getCurrentLevel() + 1)*200))/1000;
+
+        if (newXP >= maxXP) {
+            projectMPlayer.setCurrentXP(0);
+            projectMPlayer.setCurrentLevel(projectMPlayer.getCurrentLevel() + 1);
+
+            projectMPlayer.setSkillPoints(projectMPlayer.getSkillPoints() + 1);
+            if ((projectMPlayer.getCurrentLevel() & 1) == 0 ) projectMPlayer.setSurvivorPoints(projectMPlayer.getSurvivorPoints() + 1);
+            projectMPlayer.save();
+        } else {
+            projectMPlayer.setCurrentXP(newXP);
+        }
+
+        updateXPBAR(player);
+    }
+
+    /**
+     * Updates the xp bar of the player
+     * @param player whose xp bar will be updated.
+     */
+    public void updateXPBAR(Player player) {
+        ProjectMPlayer projectMPlayer = getPlayerDB(player);
+        player.setLevel(projectMPlayer.getCurrentLevel());
+
+        int maxXP = (((projectMPlayer.getCurrentLevel() + 1)*200) * ((projectMPlayer.getCurrentLevel() + 1)*200))/1000;
+        player.setExp((float) projectMPlayer.getCurrentXP() / maxXP);
+    }
 }

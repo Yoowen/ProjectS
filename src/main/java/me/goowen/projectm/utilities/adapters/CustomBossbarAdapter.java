@@ -27,6 +27,8 @@ public class CustomBossbarAdapter {
         bossbarString = bossbarString.replace(".", "ꈄ\uF811");
         bossbarString = bossbarString.replace("/", "ꈅ\uF811");
         bossbarString = bossbarString.replace(" ", "ꈄ\uF811");
+        bossbarString = bossbarString.replace("!", "ꈄ\uF811");
+        bossbarString = bossbarString.replace("+", "ꈅ\uF811");
 
         bossbarString = bossbarString.replace("鄟", "ꈅ\uF811ꈄ\uF811");
         bossbarString = bossbarString.replace("숡", "ꈅ\uF811ꈄ\uF811");
@@ -115,6 +117,8 @@ public class CustomBossbarAdapter {
         bossbarString = bossbarString.replace(".", "\uF813");
         bossbarString = bossbarString.replace("/", "\uF817");
         bossbarString = bossbarString.replace(" ", "\uF813");
+        bossbarString = bossbarString.replace("!", "\uF813");
+        bossbarString = bossbarString.replace("+", "\uF817");
 
         bossbarString = bossbarString.replace("鄟", "\uF818\uF814");
         bossbarString = bossbarString.replace("숡", "\uF818\uF814");
