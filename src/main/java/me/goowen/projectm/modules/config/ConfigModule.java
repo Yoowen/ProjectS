@@ -18,6 +18,7 @@ public class ConfigModule
     {
         this.config = new Config("config.yml");
         this.xpList = new Config("xpList.yml");
+        config.getConfigConfiguration().set("lockdown", true);
         projectM.getLog().info(ChatColor.DARK_AQUA + "[ConfigModule] De module is succesvol geladen!");
     }
 }

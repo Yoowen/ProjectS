@@ -6,6 +6,8 @@ import me.goowen.projectm.framework.player.PlayerLoader;
 import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
 import me.goowen.projectm.modules.player.commands.ChatSpyCommand;
 import me.goowen.projectm.modules.player.commands.ChatStaffCommand;
+import me.goowen.projectm.modules.player.commands.LockdownCommand;
+import me.goowen.projectm.modules.player.listeners.PlayerLoginEvent;
 import me.goowen.projectm.modules.player.listeners.PlayerAsyncChatEvent;
 import me.goowen.projectm.modules.player.listeners.PlayerLoginListener;
 import me.goowen.projectm.modules.player.listeners.PlayerQuitListener;
@@ -26,9 +28,11 @@ public class PlayerModule {
         Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(), projectM);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), projectM);
         Bukkit.getPluginManager().registerEvents(new PlayerAsyncChatEvent(), projectM);
+        Bukkit.getPluginManager().registerEvents(new PlayerLoginEvent(), projectM);
 
         projectM.getCommand("chatspy").setExecutor(new ChatSpyCommand());
         projectM.getCommand("staffchat").setExecutor(new ChatStaffCommand());
+        projectM.getCommand("lockdown").setExecutor(new LockdownCommand());
         playerLoader = new PlayerLoader();
 
         projectM.getLog().info(ChatColor.DARK_AQUA + "[PlayerModule] De module is succesvol geladen!");

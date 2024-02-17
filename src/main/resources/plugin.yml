@@ -41,4 +41,6 @@ commands:
     description: feeds a player.
   staffchat:
     description: staffchat command
+  lockdown:
+    description: lockdown command
 
