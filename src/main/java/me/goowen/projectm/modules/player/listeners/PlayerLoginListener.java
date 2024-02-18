@@ -20,7 +20,7 @@ public class PlayerLoginListener implements Listener
      * Laat de Speler in vanuit de database wanneer de speler klaar is met inladen roept hij het AfterLogin Event aan.
      * @param event
      */
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerJoinEvent event)
     {
         ProjectM.getPlayerModule().getPlayerLoader().load(event.getPlayer(), new LoadingPlayer() {
