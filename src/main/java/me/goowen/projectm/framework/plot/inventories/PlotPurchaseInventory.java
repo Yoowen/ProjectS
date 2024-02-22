@@ -48,6 +48,6 @@ public class PlotPurchaseInventory extends FixedInventory {
         Player player = interactionData.getPlayer();
         player.closeInventory();
         new PlotConfirmPurchaseInventory(plot).open(player);
-        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+        player.playSound(player.getLocation(), "minecraft:citycraft.kassa", 1, 1);
     }
 }
