@@ -14,7 +14,7 @@ import java.util.Objects;
 /* *
  * Created by Joshua Bell (RingOfStorms).
  *
- * Edited for 1.16 and onwards by Owen (goowen).
+ * Edited for 1.20.4 and onwards by Owen (goowen).
  *
  * Post explaining here: [URL]http://bukkit.org/threads/gsonfactory-gson-that-works-on-itemstack-potioneffect-location-objects.331161/[/URL]
  * */
@@ -52,11 +52,11 @@ public class ItemstackAdapter extends TypeAdapter<ItemStack> {
                 jsonWriter.value(itemStack.getItemMeta().getDisplayName());
 
                 if (itemStack.getItemMeta().hasLore()) {
-                    jsonWriter.name("lore");
                     StringBuilder lores = new StringBuilder();
                     for (String lore: Objects.requireNonNull(itemStack.getItemMeta().getLore())) {
                         lores.append(lore).append(",");
                     }
+                    jsonWriter.name("lore");
                     jsonWriter.value(String.valueOf(lores));
                 }
 
@@ -73,46 +73,55 @@ public class ItemstackAdapter extends TypeAdapter<ItemStack> {
         }
     }
 
+    /**
+     * Reads an itemstack from a json file and returns it as a minecraft itemstack object.
+     * @param jsonReader reader with which the adapter will work.
+     * @return returns an itemstack.
+     * @throws IOException is the exception thrown when the try of the class has failed.
+     */
     @Override
     public ItemStack read(JsonReader jsonReader) throws IOException {
         try {
             if (jsonReader.peek() == JsonToken.NULL) {
                 return null;
             }
+            //Basic values
+            Material type = Material.STONE;
+            int amount = 1;
+            int durability = 1;
+            String customName = null;
+            String[] lore = null;
+            int customModelData = 0;
 
             jsonReader.beginObject();
-
-            jsonReader.nextName();
-            Material type = Material.getMaterial(jsonReader.nextString());
-
-            jsonReader.nextName();
-            int amount = jsonReader.nextInt();
-
-            jsonReader.nextName();
-            Integer durability = jsonReader.nextInt();
-
-            String customName = null;
-            if (jsonReader.hasNext()) {
-                jsonReader.nextName();
-                customName = jsonReader.nextString();
+            while (jsonReader.hasNext()) {
+                String name = jsonReader.nextName();
+                switch (name) {
+                    case "type":
+                        type = Material.getMaterial(jsonReader.nextString());
+                        break;
+                    case "amount":
+                        amount = jsonReader.nextInt();
+                        break;
+                    case "durability":
+                        durability = jsonReader.nextInt();
+                        break;
+                    case "customName":
+                        customName = jsonReader.nextString();
+                        break;
+                    case "lore":
+                        lore = jsonReader.nextString().split(",");
+                        break;
+                    case "customModelData":
+                        customModelData = jsonReader.nextInt();
+                        break;
+                    default:
+                        jsonReader.skipValue();
+                        break;
+                }
             }
-
-
-            String[] lore = null;
-            if (jsonReader.hasNext()) {
-                jsonReader.nextName();
-                lore = jsonReader.nextString().split(",");
-
-            }
-
-            int customModelData = 0;
-            if (jsonReader.hasNext()) {
-                jsonReader.nextName();
-                customModelData = jsonReader.nextInt();
-            }
-
             jsonReader.endObject();
-            return new ItemBuilder(type).setAmouth(amount).setName(customName).setDurability(durability.shortValue()).setLore(lore).setCustomModelData(customModelData).toItemStack();
+            return new ItemBuilder(type).setAmouth(amount).setName(customName).setDurability((short) durability).setLore(lore).setCustomModelData(customModelData).toItemStack();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
