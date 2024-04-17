@@ -59,9 +59,9 @@ public class CashRegisterConfirmInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void confirmPayment(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         Player onlinePlayer = paymentRequest.getRequester();
-        ProjectMPlayer receiver = ProjectM.getPlayerModule().getPlayerDB(interactionData.getPlayer());
+        ProjectMPlayer receiver = ProjectM.getPlayerModule().getPlayerDB(interactionData.getPLAYER());
         ProjectMPlayer requester = ProjectM.getPlayerModule().getPlayerDB(paymentRequest.getRequester());
         ProjectM.getCurrencyModule().getPaymentRequestList().remove(paymentRequest);
 
@@ -95,7 +95,7 @@ public class CashRegisterConfirmInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void denyPayment(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         ProjectM.getCurrencyModule().getPaymentRequestList().remove(paymentRequest);
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
 

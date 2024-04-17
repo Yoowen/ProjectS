@@ -54,7 +54,7 @@ public class PlotConfirmCancelInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void confirmMove(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         plot.setPlotCancelState(PlotCancelState.CANCELED);
         plot.save();
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
@@ -66,7 +66,7 @@ public class PlotConfirmCancelInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void denyMove(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         plot.setPlotCancelState(PlotCancelState.RENTED);
         plot.save();
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);

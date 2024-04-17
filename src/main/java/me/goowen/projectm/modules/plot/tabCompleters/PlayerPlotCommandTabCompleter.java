@@ -5,6 +5,7 @@ import me.goowen.projectm.framework.plot.Plot;
 import me.goowen.projectm.framework.plot.enums.PlotStatus;
 import me.goowen.projectm.framework.plot.enums.PlotType;
 import me.goowen.projectm.framework.pvp.GunWeapon;
+import me.goowen.projectm.framework.shops.enums.ShopType;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -33,6 +34,8 @@ public class PlayerPlotCommandTabCompleter implements TabCompleter {
             possibleArgs.add("setStatus");
             possibleArgs.add("setMailbox");
             possibleArgs.add("unavailablePlots");
+            possibleArgs.add("setShopType");
+            possibleArgs.add("help");
 
             possibleArgs = changeByUseInput(possibleArgs, args[0]);
         }
@@ -51,7 +54,14 @@ public class PlayerPlotCommandTabCompleter implements TabCompleter {
             possibleArgs = changeByUseInput(possibleArgs, args[2]);
         }
 
-        if (args.length == 2 && (args[0].equalsIgnoreCase("setOwner") || args[0].equalsIgnoreCase("removeOwner") || args[0].equalsIgnoreCase("addMember") || args[0].equalsIgnoreCase("removeMember") || args[0].equalsIgnoreCase("setStatus") || args[0].equalsIgnoreCase("setMailbox"))) {
+        if (args.length == 3 && args[0].equalsIgnoreCase("setshoptype")) {
+            for (ShopType shopType : ShopType.values()) {
+                possibleArgs.add(shopType.toString());
+            }
+            possibleArgs = changeByUseInput(possibleArgs, args[2]);
+        }
+
+        if (args.length == 2 && (args[0].equalsIgnoreCase("setOwner") || args[0].equalsIgnoreCase("setShopType") || args[0].equalsIgnoreCase("removeOwner") || args[0].equalsIgnoreCase("addMember") || args[0].equalsIgnoreCase("removeMember") || args[0].equalsIgnoreCase("setStatus") || args[0].equalsIgnoreCase("setMailbox"))) {
             for (Plot plot : ProjectM.getPlotModule().getPlotList()) {
                 possibleArgs.add(plot.getTagg());
             }

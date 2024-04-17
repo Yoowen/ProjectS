@@ -22,6 +22,7 @@ public class PlayerWeaponCommandTabCompleter implements TabCompleter {
             possibleArgs.add("create");
             possibleArgs.add("get");
             possibleArgs.add("reload");
+            possibleArgs.add("help");
 
             possibleArgs = changeByUseInput(possibleArgs, args[0]);
         }

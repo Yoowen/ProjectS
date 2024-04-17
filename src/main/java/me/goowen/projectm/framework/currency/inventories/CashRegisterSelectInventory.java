@@ -67,7 +67,7 @@ public class CashRegisterSelectInventory extends FixedInventory {
      * @param onlinePlayer to whom a exchangeEvent will be sent.
      */
     public void sendPaymentRequest(InteractionData interactionData, Player onlinePlayer) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
 
         if (!player.getInventory().getItemInMainHand().equals(this.getInventory().getItem(1))) {
             String paymentFailed = ChatColor.WHITE + "Payment Request failed";

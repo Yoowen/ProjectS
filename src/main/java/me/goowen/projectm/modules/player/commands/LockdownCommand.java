@@ -2,7 +2,7 @@ package me.goowen.projectm.modules.player.commands;
 
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.modules.config.ConfigModule;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,13 +23,13 @@ public class LockdownCommand implements CommandExecutor {
 
         if (!(sender.hasPermission("projectM.command.lockdown")))
         {
-            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
             return true;
         }
 
         if (!(args.length == 0))
         {
-            sender.sendMessage(ChatColor.RED + "Wrong usage, use /lockdown");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /lockdown");
             return true;
         }
 
@@ -37,11 +37,11 @@ public class LockdownCommand implements CommandExecutor {
 
         if (lockdown) {
             configModule.getConfig().getConfigConfiguration().set("lockdown", false);
-            sender.sendMessage(ChatColor.DARK_AQUA + "Citycraft - " + ChatColor.WHITE + "Lockdown has been disabled!");
+            sender.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- Lockdown has been disabled!");
         }
         else {
             configModule.getConfig().getConfigConfiguration().set("lockdown", true);
-            sender.sendMessage(ChatColor.DARK_AQUA + "Citycraft - " + ChatColor.WHITE + "Lockdown has been enabled!");
+            sender.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- Lockdown has been enabled!");
         }
         return true;
     }

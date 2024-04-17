@@ -6,7 +6,6 @@ import org.bukkit.Location;
 
 @Data
 public class Crate {
-
     @SerializedName("_id")
     private String tagg;
     private Location location;

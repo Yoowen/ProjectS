@@ -110,7 +110,7 @@ public class PlotOwnerInfoInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void addMember(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
 
         //Add player to the plot the add player list.
         ProjectM.getPlotModule().getAddPlayerToPlotMap().remove(player);
@@ -128,7 +128,7 @@ public class PlotOwnerInfoInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void moveOut(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         player.closeInventory();
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
         new PlotConfirmCancelInventory(plot).open(player);
@@ -140,7 +140,7 @@ public class PlotOwnerInfoInventory extends FixedInventory {
      * @param oldMember instance of the player that needs to be removed.
      */
     public void removeMember(InteractionData interactionData, OfflinePlayer oldMember) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
 
         //Removes the old member.
         plot.removeMember(oldMember);

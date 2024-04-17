@@ -24,6 +24,7 @@ public class PlayerCrateCommandTabCompleter implements TabCompleter {
             possibleArgs.add("setAmount");
             possibleArgs.add("reloadItems");
             possibleArgs.add("itemList");
+            possibleArgs.add("help");
 
             possibleArgs = changeByUseInput(possibleArgs, args[0]);
         }

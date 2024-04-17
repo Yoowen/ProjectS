@@ -33,7 +33,7 @@ public class PlayerBlockClickListener implements Listener {
      * Opens the right exchangeUI corresponding to the player who clicks.
      * @param event that is fired.
      */
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onBlockRightClick(PlayerInteractEvent event) {
         //Basic interact event checks.
         if (event.isCancelled()) return;

@@ -22,6 +22,9 @@ public class PlayerWeaponClickListener implements Listener {
         if (event.getAction() == Action.PHYSICAL) {
             return;
         }
+
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.isCancelled()) return;
+
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             ItemStack itemStack = event.getItem();
             if (itemStack == null) {

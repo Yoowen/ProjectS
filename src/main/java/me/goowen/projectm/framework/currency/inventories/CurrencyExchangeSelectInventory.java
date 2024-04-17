@@ -63,7 +63,7 @@ public class CurrencyExchangeSelectInventory extends FixedInventory {
      * @param onlinePlayer to whom a exchangeEvent will be sent.
      */
     public void sendPaymentRequest(InteractionData interactionData, Player onlinePlayer) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
 
         //Adds the player to the paymentrequestmap.
         ProjectM.getCurrencyModule().getSendExchangeReceiverMap().remove(player);

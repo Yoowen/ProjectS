@@ -5,8 +5,8 @@ import me.goowen.projectm.framework.mongoDB.callbacks.LoadingPlayer;
 import me.goowen.projectm.framework.player.PlayerLoader;
 import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
 import me.goowen.projectm.framework.player.prefix.PrefixType;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
@@ -37,7 +37,9 @@ public class PlayerLoginListener implements Listener
             @Override
             public void done(ProjectMPlayer projectMPlayer) {
                 loadPrefix(event.getPlayer());
+                loadStaffChat(event.getPlayer());
                 projectMPlayer.setLastShotFired(System.currentTimeMillis());
+                projectMPlayer.setLastNpcInteraction(System.currentTimeMillis());
                 ProjectM.getTimeModule().addPlayerTimer(event.getPlayer(), ProjectM.getTimeModule().calculateTime());
             }
 
@@ -85,6 +87,14 @@ public class PlayerLoginListener implements Listener
         player.setPlayerListName(ChatColor.WHITE + playerPrefix + ChatColor.WHITE + " | " + player.getName());
         projectMPlayer.setPrefix(ChatColor.WHITE + playerPrefix + ChatColor.WHITE + " | " + player.getName());
 
+    }
+
+    public void loadStaffChat(Player player) {
+        if (player.hasPermission("projectM.command.staffchat")) {
+            ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
+            projectMPlayer.setStaffChat(true);
+            player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- Staffchat has been activated.");
+        }
     }
 }
 

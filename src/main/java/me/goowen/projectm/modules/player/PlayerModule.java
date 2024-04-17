@@ -3,10 +3,13 @@ package me.goowen.projectm.modules.player;
 import lombok.Getter;
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.framework.player.PlayerLoader;
+import me.goowen.projectm.framework.essentials.WarpLoader;
+import me.goowen.projectm.framework.essentials.WarpLocation;
 import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
 import me.goowen.projectm.modules.player.commands.ChatSpyCommand;
 import me.goowen.projectm.modules.player.commands.ChatStaffCommand;
 import me.goowen.projectm.modules.player.commands.LockdownCommand;
+import me.goowen.projectm.modules.player.commands.PlayerDebugCommand;
 import me.goowen.projectm.modules.player.listeners.PlayerLoginEvent;
 import me.goowen.projectm.modules.player.listeners.PlayerAsyncChatEvent;
 import me.goowen.projectm.modules.player.listeners.PlayerLoginListener;
@@ -33,6 +36,7 @@ public class PlayerModule {
         projectM.getCommand("chatspy").setExecutor(new ChatSpyCommand());
         projectM.getCommand("staffchat").setExecutor(new ChatStaffCommand());
         projectM.getCommand("lockdown").setExecutor(new LockdownCommand());
+        projectM.getCommand("debug").setExecutor(new PlayerDebugCommand());
         playerLoader = new PlayerLoader();
 
         projectM.getLog().info(ChatColor.DARK_AQUA + "[PlayerModule] De module is succesvol geladen!");

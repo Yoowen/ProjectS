@@ -3,7 +3,7 @@ package me.goowen.projectm.modules.lore.commands;
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.framework.lore.LoreBook;
 import me.goowen.projectm.modules.lore.LoreModule;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,7 +14,6 @@ import org.bukkit.inventory.meta.BookMeta;
 
 
 public class LoreBookCommand implements CommandExecutor {
-    ProjectM projectM = ProjectM.getInstance();
 
     /**
      * A command to add or edit a lorebook location.
@@ -31,13 +30,13 @@ public class LoreBookCommand implements CommandExecutor {
 
         //Check if send is a player.
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only a player can use this command");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Only a player can use this command");
             return true;
         }
 
         //Check if command has enough arguments
         if (args.length == 0) {
-            sender.sendMessage(ChatColor.RED + "Wrong usage, use /lorebook <option>.");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /lorebook <option>.");
             return true;
         }
 
@@ -47,36 +46,36 @@ public class LoreBookCommand implements CommandExecutor {
             case "create":
                 //Check if command has enough arguments
                 if (args.length > 2) {
-                    sender.sendMessage(ChatColor.RED + "Wrong usage, use /lorebook create <title>.");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /lorebook create <title>.");
                     return true;
                 }
 
                 //Check if player has right permission group,
                 if (!sender.hasPermission("projectm.command.lorebook.create")) {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
                     return true;
                 }
 
                 loreModule.getLoreItem();
                 loreModule.addLoreBook(new LoreBook(args[1], player.getLocation().getBlock().getLocation()));
-                player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- created lore book with title " + args[1]);
+                player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft Lorebook" + ChatColor.WHITE + "- created lore book with title " + args[1]);
                 return true;
             case "setText":
                 //Checks if command has the right amount of arguments.
                 if (args.length != 2) {
-                    sender.sendMessage(ChatColor.RED + "Wrong usage, use /lorebook setText <title>.");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /lorebook setText <title>.");
                     return true;
                 }
 
                 //Check if player has right permission group,
                 if (!sender.hasPermission("projectm.command.lorebook.settext")) {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
                     return true;
                 }
 
                 //Checks if player is holding a written book.
                 if (!player.getInventory().getItemInMainHand().getType().equals(Material.WRITTEN_BOOK)) {
-                    player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- please hold a written book");
+                    player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft Lorebook" + ChatColor.WHITE + "- please hold a written book");
                     return true;
                 }
                 ItemStack book = player.getInventory().getItemInMainHand();
@@ -86,11 +85,11 @@ public class LoreBookCommand implements CommandExecutor {
                 loreBook.setBookInformation(bookMeta.getPages());
                 loreModule.saveLoreBook(loreBook);
 
-                player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- added text to book " + args[1]);
+                player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft Lorebook" + ChatColor.WHITE + "- added text to book " + args[1]);
                 return true;
             case "reload":
                 loreModule.reloadLoreBooks();
-                player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- succesfully reloaded lorebooks.");
+                player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft Lorebook" + ChatColor.WHITE + "- succesfully reloaded lorebooks.");
                 return true;
             case "help":
             default:
@@ -100,9 +99,9 @@ public class LoreBookCommand implements CommandExecutor {
     }
 
     public void playerHelpMessage(Player player) {
-        player.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Lorebook Help");
-        player.sendMessage(ChatColor.WHITE + "create : " + ChatColor.GRAY + "(Creates a lore book with a designated title at the location the player is standing.)");
-        player.sendMessage(ChatColor.WHITE + "setText : " + ChatColor.GRAY + "(Sets the text of the book a player is holding to the text of the lorebook.)");
-        player.sendMessage(ChatColor.WHITE + "reload : " + ChatColor.GRAY + "(Reloads all existing lorebooks form the database.)");
+        player.sendMessage(ChatColor.WHITE + "" + ChatColor.STRIKETHROUGH + "----------------" + ChatColor.RESET + ChatColor.of("#0ea6e9")+ "" + ChatColor.BOLD + " (LOREBOOK HELP) " + ChatColor.WHITE + "" + ChatColor.STRIKETHROUGH + "----------------");
+        player.sendMessage(ChatColor.of("#0ea6e9") + "/lorebook create " + ChatColor.GRAY + "<Name> " + ChatColor.WHITE + "- Creates a new lorebook with the given name.");
+        player.sendMessage(ChatColor.of("#0ea6e9") + "/lorebook setText " + ChatColor.GRAY + "<Name> " + ChatColor.WHITE + "- Sets the text of the given lorebook.");
+        player.sendMessage(ChatColor.of("#0ea6e9") + "/lorebook reload " + ChatColor.GRAY + "" + ChatColor.WHITE + "- Reloads all lorebooks.");
     }
 }

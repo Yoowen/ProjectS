@@ -12,6 +12,8 @@ import me.goowen.projectm.modules.player.PlayerModule;
 import me.goowen.projectm.modules.playerInventory.PlayerInventoryModule;
 import me.goowen.projectm.modules.plot.PlotModule;
 import me.goowen.projectm.modules.pvp.PvpModule;
+import me.goowen.projectm.modules.shops.ShopsModule;
+import me.goowen.projectm.modules.speech.SpeechModule;
 import me.goowen.projectm.modules.time.TimeModule;
 import me.goowen.projectm.utilities.UtilitiesModule;
 import org.bukkit.ChatColor;
@@ -33,8 +35,10 @@ public class ProjectM extends JavaPlugin {
     public static @Getter LoreModule loreModule;
     public static @Getter MiscModule miscModule;
     public static @Getter PlayerInventoryModule playerInventoryModule;
-    public static @Getter PlotModule plotModule;
     public static @Getter CurrencyModule currencyModule;
+    public static @Getter SpeechModule speechModule;
+    public static @Getter ShopsModule shopsModule;
+    public static @Getter PlotModule plotModule;
 
     public final @Getter Logger log = this.getLogger();
     public final @Getter String prefix = ChatColor.DARK_AQUA + "[Project M]";
@@ -44,7 +48,7 @@ public class ProjectM extends JavaPlugin {
     public void onEnable()
     {
         this.loadMS = System.currentTimeMillis();
-        System.out.println(prefix + "Gestart met het laden van ProjectM V" + this.getDescription().getVersion() + " by " + this.getDescription().getAuthors().toString().replace("[", "").replace("]", ""));
+        log.info(prefix + "Gestart met het laden van ProjectM V" + this.getDescription().getVersion() + " by " + this.getDescription().getAuthors().toString().replace("[", "").replace("]", ""));
         instance = this;
         configModule = new ConfigModule();
         mongodbModule = new MongodbModule();
@@ -59,8 +63,10 @@ public class ProjectM extends JavaPlugin {
         playerInventoryModule = new PlayerInventoryModule();
         plotModule = new PlotModule();
         currencyModule = new CurrencyModule();
+        speechModule = new SpeechModule();
+        shopsModule = new ShopsModule();
 
-        System.out.println(prefix + "Project M succesvol geladen! Dit prosess duurde " + (System.currentTimeMillis() - loadMS) + " ms!");
+        log.info(prefix + "Project M succesvol geladen! Dit prosess duurde " + (System.currentTimeMillis() - loadMS) + " ms!");
     }
 
     @Override

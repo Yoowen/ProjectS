@@ -1,10 +1,7 @@
 package me.goowen.projectm.modules.playerInventory;
 
 import me.goowen.projectm.ProjectM;
-import me.goowen.projectm.modules.playerInventory.listeners.PlayerBackpackClickEvent;
-import me.goowen.projectm.modules.playerInventory.listeners.PlayerClickOnPlayerListener;
-import me.goowen.projectm.modules.playerInventory.listeners.PlayerInventoryCloseListener;
-import me.goowen.projectm.modules.playerInventory.listeners.PlayerInventoryListener;
+import me.goowen.projectm.modules.playerInventory.listeners.*;
 import me.goowen.projectm.utilities.itemstacks.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -29,8 +26,10 @@ public class PlayerInventoryModule {
 
         Bukkit.getPluginManager().registerEvents(new PlayerInventoryListener(), projectM);
         Bukkit.getPluginManager().registerEvents(new PlayerInventoryCloseListener(), projectM);
-        Bukkit.getPluginManager().registerEvents(new PlayerBackpackClickEvent(), projectM);
+        Bukkit.getPluginManager().registerEvents(new PlayerBackpackClickListener(), projectM);
         Bukkit.getPluginManager().registerEvents(new PlayerClickOnPlayerListener(), projectM);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), projectM);
+        Bukkit.getPluginManager().registerEvents(new PlayerRespawnListener(), projectM);
 
         projectM.getLog().info(ChatColor.DARK_AQUA + "[PlayerInventoryModule] De module is succesvol geladen!");
     }
@@ -70,7 +69,7 @@ public class PlayerInventoryModule {
             if (inventory.getItem(inventorySlot) !=  null) {
                 if (!player.hasPermission("projectM.inventory.override")) {
                     if (inventory.getItem(inventorySlot).hasItemMeta() && inventory.getItem(inventorySlot).getItemMeta().hasCustomModelData()) {
-                        if (inventory.getItem(inventorySlot).getItemMeta().getCustomModelData() == 2) return;
+                        if (inventory.getItem(inventorySlot).getItemMeta().getCustomModelData() == 2 && inventory.getItem(inventorySlot).getType().equals(Material.BRICK)) return;
                     }
                     player.getWorld().dropItemNaturally(player.getLocation(), inventory.getItem(inventorySlot));
                     inventory.setItem(inventorySlot, new ItemBuilder(Material.BRICK).setCustomModelData(2).setName(ChatColor.GRAY + "Locked").hideAttributes(true).toItemStack());

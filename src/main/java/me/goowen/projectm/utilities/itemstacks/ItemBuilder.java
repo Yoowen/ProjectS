@@ -308,6 +308,11 @@ public class ItemBuilder {
         return this;
     }
 
+    /**
+     * Sets the tool to unbreakable.
+     * @param bool true or false
+     * @return this class.
+     */
     public ItemBuilder unbreakable(boolean bool) {
         ItemMeta itemMeta = is.getItemMeta();
 
@@ -317,13 +322,18 @@ public class ItemBuilder {
         return this;
     }
 
+    /**
+     * Sets the customModelData to the given number.
+     * @param integer number for the customModelData.
+     * @return this class.
+     */
     public ItemBuilder setCustomModelData(Integer integer)
     {
         if (integer == null) {return this;}
         ItemMeta itemMeta = is.getItemMeta();
-
-        itemMeta.setCustomModelData(integer);
-
+        if (integer != 0) {
+            itemMeta.setCustomModelData(integer);
+        }
         is.setItemMeta(itemMeta);
         return this;
     }
@@ -362,6 +372,12 @@ public class ItemBuilder {
         return this;
     }
 
+    /**
+     * Sets the namespace key of an item to a string.
+     * @param key to be set.
+     * @param string connected to the key.
+     * @return this class.
+     */
     public ItemBuilder setNameSpacedKeyString(NamespacedKey key, String string) {
         ItemMeta itemMeta = is.getItemMeta();
         itemMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, string);
@@ -370,6 +386,12 @@ public class ItemBuilder {
         return this;
     }
 
+    /**
+     * Sets the namespace key of an item to a number.
+     * @param key to be set.
+     * @param integer connected to the key.
+     * @return this class.
+     */
     public ItemBuilder setNameSpacedKeyInterger(NamespacedKey key, Integer integer) {
         ItemMeta itemMeta = is.getItemMeta();
         itemMeta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, integer);

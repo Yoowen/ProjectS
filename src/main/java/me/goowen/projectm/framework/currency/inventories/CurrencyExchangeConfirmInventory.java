@@ -58,9 +58,9 @@ public class CurrencyExchangeConfirmInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void confirmPayment(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         Player onlinePlayer = paymentRequest.getRequester();
-        ProjectMPlayer receiver = ProjectM.getPlayerModule().getPlayerDB(interactionData.getPlayer());
+        ProjectMPlayer receiver = ProjectM.getPlayerModule().getPlayerDB(interactionData.getPLAYER());
         ProjectMPlayer requester = ProjectM.getPlayerModule().getPlayerDB(paymentRequest.getRequester());
         ProjectM.getCurrencyModule().getExchangeRequestList().remove(paymentRequest);
 
@@ -91,7 +91,7 @@ public class CurrencyExchangeConfirmInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void denyPayment(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         ProjectM.getCurrencyModule().getExchangeRequestList().remove(paymentRequest);
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
         player.closeInventory();

@@ -49,19 +49,19 @@ public class PlayerStatsInventory extends FixedInventory {
     }
 
     public void settings(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         player.closeInventory();
         player.sendMessage(ChatColor.of("#20b4b6") + "Settings");
     }
 
     public void achievements(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         player.closeInventory();
         player.sendMessage(ChatColor.of("#20b4b6") + "Achievements");
     }
 
     public void skills(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         player.closeInventory();
         player.sendMessage(ChatColor.of("#20b4b6") + "Skills");
     }

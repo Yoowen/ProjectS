@@ -24,21 +24,21 @@ public class PlayerLorebookClickListener implements Listener {
     public void onClick(PlayerInteractEvent event) {
         //Basic event checks.
         if (event.getHand() != EquipmentSlot.HAND) return;
-        if (event.getAction() != Action.PHYSICAL) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         //Checks if block is a lorebook block.
-        if (!event.getClickedBlock().getType().equals(Material.DEAD_TUBE_CORAL_FAN) && !event.getClickedBlock().getType().equals(Material.DEAD_TUBE_CORAL_WALL_FAN)) return;
-        //Check if lorebook block has a corresponding lorebook.
-        LoreModule loreModule = ProjectM.getLoreModule();
-        if (!loreModule.isLoreBook(event.getClickedBlock().getLocation())) return;
-        //Opening the corresponding lorebook.
-        LoreBook loreBook = loreModule.getLoreBook(event.getClickedBlock().getLocation()).get();
-        ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
-        BookMeta bookMeta = (BookMeta) book.getItemMeta();
-        Objects.requireNonNull(bookMeta).setPages(loreBook.getBookInformation());
-        bookMeta.setAuthor("project m");
-        bookMeta.setTitle("project m");
-        book.setItemMeta(bookMeta);
-        event.getPlayer().openBook(book);
+        if (event.getClickedBlock().getType().equals(Material.DEAD_TUBE_CORAL_FAN) || event.getClickedBlock().getType().equals(Material.DEAD_TUBE_CORAL_WALL_FAN)) {
+            //Check if lorebook block has a corresponding lorebook.
+            LoreModule loreModule = ProjectM.getLoreModule();
+            if (!loreModule.isLoreBook(event.getClickedBlock().getLocation())) return;
+            //Opening the corresponding lorebook.
+            LoreBook loreBook = loreModule.getLoreBook(event.getClickedBlock().getLocation()).get();
+            ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+            BookMeta bookMeta = (BookMeta) book.getItemMeta();
+            Objects.requireNonNull(bookMeta).setPages(loreBook.getBookInformation());
+            bookMeta.setAuthor("project m");
+            bookMeta.setTitle("project m");
+            book.setItemMeta(bookMeta);
+            event.getPlayer().openBook(book);
+        }
     }
 }

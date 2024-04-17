@@ -7,40 +7,70 @@ description: This is a test build for a project currently under the title projec
 commands:
   chatspy:
     description: enable or disable chatspy.
+    permission: projectm.command.chatspy
   gamemode:
     description: gamemode command.
     aliases: [gm]
+    permission: projectm.command.gamemode
   speed:
     description: changes the speed of the player
     aliases: [flyspeed, walkspeed]
+    permission: projectm.command.speed
   fly:
     description: changes the players ability to fly.
+    permission: projectm.command.fly
   back:
     description: telports you back to the latest telport location.
+    permission: projectm.command.back
   clear:
     description: clears the player.
+    permission: projectm.command.clear
   editinventory:
     description: opens the inventory of an other player online.
     aliases: [editinv, invopen, inventoryopen, invsee]
+    permission: projectm.command.editinventory
   crate:
     description: opens the crate editor.
+    permission: projectm.command.crate
   ammo:
     description: easy ammo command.
+    permission: projectm.command.ammo
   gun:
     description: gun command.
     aliases: [weapon]
+    permission: projectm.command.gun
   lorebook:
     description: adds a lorebook location.
+    permission: projectm.command.lorebook
   shiv:
     description: gives the player a shiv item.
+    permission: projectm.command.shiv
   plot:
     description: a simple plot command for administrators.
+    permission: projectm.command.plot
   heal:
     description: heals a player.
+    permission: projectm.command.heal
   feed:
     description: feeds a player.
+    permission: projectm.command.feed
   staffchat:
-    description: staffchat command
+    aliases: [sc, staff]
+    description: staffchat command.
+    permission: projectm.command.staffchat
   lockdown:
-    description: lockdown command
+    description: lockdown command.
+    permission: projectm.command.lockdown
+  speech:
+    description: speech command.
+    permission: projectm.command.speech
+  shop:
+    description: shop command.
+    permission: projectm.command.shop
+  warp:
+    description: warp command.
+    permission: projectm.command.warp
+  debug:
+    description: debug command
+
 

@@ -7,15 +7,9 @@ import org.bukkit.inventory.ItemStack;
 
 @Data
 public class CrateItem {
-
-    @Getter
     @SerializedName("_id")
     private String name;
-
-    @Getter
     private int chance;
-
-    @Getter
     private ItemStack itemStack;
 
     public CrateItem(String name, ItemStack itemStack, int chance) {

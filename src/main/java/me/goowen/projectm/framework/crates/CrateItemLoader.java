@@ -15,6 +15,11 @@ import java.util.concurrent.CompletableFuture;
 public class CrateItemLoader {
     private ProjectM projectM = ProjectM.getInstance();
 
+    /**
+     * saves a single CrateItem object to the database.
+     * @param crateItem object being saved.
+     * @return result of the completableFuture.
+     */
     public CompletableFuture<Void> saveCrateItem(CrateItem crateItem){
         return CompletableFuture.runAsync(() -> {
             MongoCollection<Document> crateItemCollection = MongodbModule.getMongoClient().getDatabase("crates").getCollection("crateItems");
@@ -27,6 +32,10 @@ public class CrateItemLoader {
         });
     }
 
+    /**
+     * Returns a list of all the CrateItem objects in the database.
+     * @return list of all CrateItem objects.
+     */
     public CompletableFuture<List<CrateItem>> getCrateItems() {
         return CompletableFuture.supplyAsync(() -> {
             MongoCollection<Document> crateItemCollection = MongodbModule.getMongoClient().getDatabase("crates").getCollection("crateItems");
@@ -39,6 +48,11 @@ public class CrateItemLoader {
         });
     }
 
+    /**
+     * removes a single CrateItem object from the database.
+     * @param crateItem object that needs to be removed.
+     * @return result of the completableFuture.
+     */
     public CompletableFuture<Void> deleteCrateItem(CrateItem crateItem) {
         return CompletableFuture.runAsync(() -> {
             MongoCollection<Document> crateItemsCollection = MongodbModule.getMongoClient().getDatabase("crates").getCollection("crateItems");

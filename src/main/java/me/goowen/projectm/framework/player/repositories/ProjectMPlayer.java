@@ -5,7 +5,10 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import me.goowen.projectm.ProjectM;
+import me.goowen.projectm.framework.shops.enums.ShopType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -71,20 +74,43 @@ public class ProjectMPlayer {
     @Getter
     private int skillPoints = 0;
 
+    @Setter
+    @Getter
+    private long lastNpcInteraction = System.currentTimeMillis();
+
+    @Setter
+    @Getter
+    private List<ShopType> shopTypes = new ArrayList<>();
+
+    /**
+     * Creates an instance of this class.
+     * @param uuid of the player this class will belong to.
+     */
     public ProjectMPlayer(UUID uuid) {
         this.uuid = uuid;
     }
 
+    /**
+     * Removes money from the players database object.
+     * @param amount of money to remove.
+     */
     public void removeMoney(Integer amount) {
         this.money = this.money - amount;
         save();
     }
 
+    /**
+     * Adds money to the players database object.
+     * @param amount of money to add.
+     */
     public void addMoney(Integer amount) {
         this.money = this.money + amount;
         save();
     }
 
+    /**
+     * saves the current instance of this object to the database.
+     */
     public void save() {
         ProjectM.getPlayerModule().getPlayerLoader().savePlayer(this);
     }

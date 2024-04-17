@@ -1,7 +1,7 @@
 package me.goowen.projectm.modules.essentials.commands;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +22,7 @@ public class PlayerFlyCommand implements CommandExecutor {
 
         //Check if sender is a player
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only a player can use this command");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Only a player can use this command");
             return true;
         }
         Player player = (Player) sender;
@@ -31,46 +31,46 @@ public class PlayerFlyCommand implements CommandExecutor {
         switch (args.length) {
             case 0:
                 //Check if sender has the required permissions.
-                if (!(sender.hasPermission("projectM.command.fly"))) {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+                if (!(sender.hasPermission("projectm.command.fly"))) {
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
                     return true;
                 }
 
                 //sets the flying ability of the player
                 if (player.getAllowFlight()) {
                     player.setAllowFlight(false);
-                    player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- The ability to fly has been set to false.");
+                    player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- The ability to fly has been set to false.");
                 } else {
                     player.setAllowFlight(true);
-                    player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- The ability to fly has been set to true.");
+                    player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- The ability to fly has been set to true.");
                 }
                 return true;
             case 1:
                 //gets the second player of which the sender wants to set the flying ability.
                 Player other = Bukkit.getPlayerExact(args[0]);
                 if (other == null) {
-                    sender.sendMessage(ChatColor.RED + "Player does not exist!");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Player does not exist!");
                     return true;
                 }
 
                 //permission check.
-                if (!(sender.hasPermission("projectM.command.fly.other"))) {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+                if (!(sender.hasPermission("projectm.command.fly.other"))) {
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
                     return true;
                 }
 
                 //sets the flying ability of the player.
                 if (other.getAllowFlight()) {
                     other.setAllowFlight(false);
-                    player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- The ability to fly of player " + other.getName() + " has been set to false.");
+                    player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- The ability to fly of player " + other.getName() + " has been set to false.");
                 } else {
                     other.setAllowFlight(true);
-                    player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- The ability to fly of player " + other.getName() + " has been set to true.");
+                    player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- The ability to fly of player " + other.getName() + " has been set to true.");
                 }
                 return true;
 
             default:
-                sender.sendMessage(ChatColor.RED + "Wrong usage, please use /fly <player>");
+                sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, please use /fly <player>");
                 return true;
         }
     }

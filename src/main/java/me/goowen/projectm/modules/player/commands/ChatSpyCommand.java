@@ -2,7 +2,7 @@ package me.goowen.projectm.modules.player.commands;
 
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,19 +22,19 @@ public class ChatSpyCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player))
         {
-            sender.sendMessage(ChatColor.RED + "Only a player can use this command");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Only a player can use this command");
             return true;
         }
 
         if (!(sender.hasPermission("projectM.command.chatspy")))
         {
-            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
             return true;
         }
 
         if (!(args.length == 0))
         {
-            sender.sendMessage(ChatColor.RED + "Wrong usage, use /chatspy");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /chatspy");
             return true;
         }
 
@@ -42,11 +42,11 @@ public class ChatSpyCommand implements CommandExecutor {
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
         if (projectMPlayer.isChatSpy()) {
             projectMPlayer.setChatSpy(false);
-            sender.sendMessage(ChatColor.DARK_AQUA + "Citycraft - " + ChatColor.WHITE + "Chat spy has been disabled!");
+            sender.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- Chat spy has been disabled!");
         }
         else {
             projectMPlayer.setChatSpy(true);
-            sender.sendMessage(ChatColor.DARK_AQUA + "Citycraft - " + ChatColor.WHITE + "Chat spy has been enabled!");
+            sender.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- Chat spy has been enabled!");
         }
         return true;
     }

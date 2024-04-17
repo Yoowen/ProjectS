@@ -1,6 +1,7 @@
 package me.goowen.projectm.framework.plot;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import me.goowen.projectm.ProjectM;
@@ -8,6 +9,7 @@ import me.goowen.projectm.framework.player.repositories.ProjectMPlayer;
 import me.goowen.projectm.framework.plot.enums.PlotCancelState;
 import me.goowen.projectm.framework.plot.enums.PlotStatus;
 import me.goowen.projectm.framework.plot.enums.PlotType;
+import me.goowen.projectm.framework.shops.enums.ShopType;
 import me.goowen.projectm.utilities.adapters.CharacterReplacementAdapter;
 import me.goowen.projectm.utilities.adapters.CustomBossbarAdapter;
 import me.goowen.projectm.utilities.worldguard.WorldguardUtility;
@@ -21,19 +23,21 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
+@Data
 public class Plot {
     @SerializedName("_id")
-    private @Getter final String tagg;
-    private @Getter final String worldGuardID;
-    private @Getter @Setter Location mailBoxLocation;
-    private @Getter @Setter PlotType plotType;
-    private @Getter @Setter PlotStatus plotStatus = PlotStatus.UNAVAILABLE;;
-    private @Getter @Setter Integer pricePerWeek;
-    private @Getter @Setter Date firstBoughtData;
-    private @Getter @Setter Date nextDueDate;
-    private @Getter @Setter PlotCancelState plotCancelState = PlotCancelState.RENTED;
-    private @Getter UUID owner;
-    private @Getter Set<UUID> memberList = new HashSet<>();
+    private final String tagg;
+    private final String worldGuardID;
+    private Location mailBoxLocation;
+    private PlotType plotType;
+    private PlotStatus plotStatus = PlotStatus.UNAVAILABLE;;
+    private Integer pricePerWeek;
+    private Date firstBoughtData;
+    private Date nextDueDate;
+    private PlotCancelState plotCancelState = PlotCancelState.RENTED;
+    private UUID owner;
+    private ShopType shopType = ShopType.DEFAULT;
+    private Set<UUID> memberList = new HashSet<>();
 
     /**
      * Creates a new custom plot object.
@@ -91,6 +95,7 @@ public class Plot {
         this.nextDueDate = calendar.getTime();
         this.plotStatus = PlotStatus.OCCUPIED;
         this.plotCancelState = PlotCancelState.RENTED;
+        ProjectM.getPlayerModule().getPlayerDB(player).getShopTypes().add(shopType);
         save();
     }
 
@@ -105,6 +110,7 @@ public class Plot {
         this.firstBoughtData = null;
         this.nextDueDate = null;
         this.memberList.clear();
+        ProjectM.getPlayerModule().getPlayerDB(player).getShopTypes().remove(shopType);
         save();
     }
 
@@ -137,9 +143,19 @@ public class Plot {
             return;
         }
 
+        if (this.plotType.equals(PlotType.SHOP)) {
+            if (projectMPlayer.getShopTypes().contains(this.shopType)) {
+                String plotUnavailable = ChatColor.WHITE + "You already own a shop of this type";
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(plotUnavailable) + new CharacterReplacementAdapter().addaptForBossbar(plotUnavailable)));
+                return;
+            }
+        }
+
         //Set player as the owner of the plot.
         setOwner(player);
         projectMPlayer.removeMoney(pricePerWeek);
+        String removePlayerString = ChatColor.of("#5aa64c") + "Plot Successfully Acquired";
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(removePlayerString) + new CharacterReplacementAdapter().addaptForBossbar(removePlayerString)));
         save();
     }
 

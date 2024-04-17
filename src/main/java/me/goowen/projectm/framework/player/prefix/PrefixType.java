@@ -2,7 +2,7 @@ package me.goowen.projectm.framework.player.prefix;
 
 public enum PrefixType {
     PLAYER("player", "(Guest)"),
-    BUILDER("builder", "ꑥ"),
+    BUILDER("builder", "ꐃ"),
     MOD("mod", "ꑥ"),
     PROJECT_LEAD("project-lead","ꐁ");
 
@@ -14,10 +14,16 @@ public enum PrefixType {
         this.prefix = prefix;
     }
 
+    /**
+     * @return the icon of the prefix.
+     */
     public String getPrefix(){
         return this.prefix;
     }
 
+    /**
+     * @return the name of the prefix.
+     */
     public String getName(){
         return this.name;
     }

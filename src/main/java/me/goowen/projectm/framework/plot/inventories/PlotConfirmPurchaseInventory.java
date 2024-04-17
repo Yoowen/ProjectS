@@ -59,7 +59,7 @@ public class PlotConfirmPurchaseInventory extends FixedInventory {
      */
     public void confirm(InteractionData interactionData) {
         //Gets player object.
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         //Checks plot status.
         if (plot.getPlotStatus().equals(PlotStatus.FREE)) {
             //Gets projectMPlayer object.
@@ -74,8 +74,6 @@ public class PlotConfirmPurchaseInventory extends FixedInventory {
             }
             //Buy's a plot.
             plot.buyPlot(player);
-            String removePlayerString = ChatColor.of("#5aa64c") + "Plot Successfully Acquired";
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(removePlayerString) + new CharacterReplacementAdapter().addaptForBossbar(removePlayerString)));
         }
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
         player.closeInventory();
@@ -86,7 +84,7 @@ public class PlotConfirmPurchaseInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void deny(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
         player.closeInventory();
     }

@@ -7,7 +7,6 @@ import me.goowen.projectm.utilities.UIBuilder.inventoryTypes.FixedInventory;
 import me.goowen.projectm.utilities.itemstacks.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -45,7 +44,7 @@ public class PlotPurchaseInventory extends FixedInventory {
      * @param interactionData of an inventory click event.
      */
     public void buyForOneWeek(InteractionData interactionData) {
-        Player player = interactionData.getPlayer();
+        Player player = interactionData.getPLAYER();
         player.closeInventory();
         new PlotConfirmPurchaseInventory(plot).open(player);
         player.playSound(player.getLocation(), "minecraft:citycraft.kassa", 1, 1);

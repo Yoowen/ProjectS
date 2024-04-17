@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class PlayerBackpackClickEvent implements Listener {
+public class PlayerBackpackClickListener implements Listener {
     private final List<Integer> TIER3 = IntStream.builder().add(21).add(22).add(30).add(31).add(23).add(24).add(32).add(33).add(25).add(26).add(34).add(35).build().boxed().collect(Collectors.toList());
     private final List<Integer> TIER2 = IntStream.builder().add(21).add(22).add(30).add(31).add(23).add(24).add(32).add(33).build().boxed().collect(Collectors.toList());
     private final List<Integer> TIER1 = IntStream.builder().add(21).add(22).add(30).add(31).build().boxed().collect(Collectors.toList());
@@ -25,6 +25,7 @@ public class PlayerBackpackClickEvent implements Listener {
     public void playerBackpackClickEvent(PlayerInteractEvent event) {
         if (event.getHand() != EquipmentSlot.HAND) return;
         if (event.getAction() == Action.PHYSICAL) return;
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.isCancelled()) return;
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             ItemStack itemStack = event.getItem();
             if (itemStack == null) return;

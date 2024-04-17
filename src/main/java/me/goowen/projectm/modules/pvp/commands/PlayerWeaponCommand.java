@@ -2,7 +2,7 @@ package me.goowen.projectm.modules.pvp.commands;
 
 import me.goowen.projectm.ProjectM;
 import me.goowen.projectm.framework.pvp.GunWeapon;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,7 +15,7 @@ public class PlayerWeaponCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         //Check if sender is a player
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only a player can use this command");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Only a player can use this command");
             return true;
         }
         Player player = (Player) sender;
@@ -23,7 +23,7 @@ public class PlayerWeaponCommand implements CommandExecutor {
 
         //Check if command has enough arguments
         if (args.length == 0) {
-            sender.sendMessage(ChatColor.RED + "Wrong usage, use /gun <option>.");
+            sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /gun help.");
             return true;
         }
 
@@ -31,12 +31,12 @@ public class PlayerWeaponCommand implements CommandExecutor {
             case "create":
                 //Check if sender has the required permissions.
                 if (!(sender.hasPermission("projectM.command.gun.create"))) {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
                     return true;
                 }
 
                 if (args.length != 3) {
-                    sender.sendMessage(ChatColor.RED + "Wrong usage, use /gun <option>.");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /gun help.");
                     return true;
                 }
 
@@ -44,16 +44,17 @@ public class PlayerWeaponCommand implements CommandExecutor {
                 String ammoTagg = args[2];
                 ItemStack gunItem = player.getInventory().getItemInMainHand();
                 ProjectM.getPvpModule().getGunLoader().saveGun(new GunWeapon(tagg, ammoTagg, 6, 1, 30, 4, 60, 40, 4, 2300, "citycraft.loud", 40, "citycraft.reload", 300, 1, true, 3, gunItem));
+                player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft Gun" + ChatColor.WHITE + "- Gun with the name " + args[1] + " has been created.");
                 break;
             case "get":
                 //Check if sender has the required permissions.
                 if (!(sender.hasPermission("projectM.command.gun.get"))) {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
                     return true;
                 }
 
                 if (args.length != 2) {
-                    sender.sendMessage(ChatColor.RED + "Wrong usage, use /gun <option>.");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /gun help.");
                     return true;
                 }
 
@@ -63,30 +64,51 @@ public class PlayerWeaponCommand implements CommandExecutor {
                     gunWeapon.setCurrentDurability(gunWeapon.getMaxDurability());
                     gunWeapon.setReloading(0);
                     player.getInventory().addItem(gunWeapon.getItemStack());
-                    player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- Gun with the name " + gunWeapon.getTagg() + " has been added to your inventory.");
+                    player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft Gun" + ChatColor.WHITE + "- Gun with the name " + gunWeapon.getTagg() + " has been added to your inventory.");
                 } else {
-                    sender.sendMessage(ChatColor.RED + "A problem occurred, The gun you specified did not exist.");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "A problem occurred, The gun you specified did not exist.");
                 }
                 break;
             case "reload":
                 //Check if sender has the required permissions.
                 if (!(sender.hasPermission("projectM.command.gun.reload"))) {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
                     return true;
                 }
 
                 if (args.length != 1) {
-                    sender.sendMessage(ChatColor.RED + "Wrong usage, use /gun <option>.");
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /gun help.");
                     return true;
                 }
 
                 ProjectM.getPvpModule().reloadGuns();
-                player.sendMessage(ChatColor.DARK_AQUA + "Citycraft " + ChatColor.WHITE + "- Guns have been reloaded.");
+                player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft Gun" + ChatColor.WHITE + "- Guns have been reloaded.");
+                break;
+            case "help":
+                //Check if sender has the required permissions.
+                if (!(sender.hasPermission("projectM.command.gun.help"))) {
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
+                    return true;
+                }
+
+                if (args.length != 1) {
+                    sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /gun help.");
+                    return true;
+                }
+
+                playerHelpMessage(player);
                 break;
             default:
-                sender.sendMessage(ChatColor.RED + "Wrong usage, use /gun <option>.");
+                sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /gun help.");
                 break;
         }
         return true;
+    }
+
+    public void playerHelpMessage(Player player) {
+        player.sendMessage(ChatColor.WHITE + "" + ChatColor.STRIKETHROUGH + "----------------" + ChatColor.RESET + ChatColor.of("#0ea6e9")+ "" + ChatColor.BOLD + " (GUN HELP) " + ChatColor.WHITE + "" + ChatColor.STRIKETHROUGH + "----------------");
+        player.sendMessage(ChatColor.of("#0ea6e9") + "/gun create " + ChatColor.GRAY + "<gunName> <ammoName> " + ChatColor.WHITE + "- Creates a new gun with the specified name.");
+        player.sendMessage(ChatColor.of("#0ea6e9") + "/gun get " + ChatColor.GRAY + "<gunName> " + ChatColor.WHITE + "- Gives the player a gun with the given name.");
+        player.sendMessage(ChatColor.of("#0ea6e9") + "/gun reload " + ChatColor.GRAY + "" + ChatColor.WHITE + "- Reloads all guns.");
     }
 }

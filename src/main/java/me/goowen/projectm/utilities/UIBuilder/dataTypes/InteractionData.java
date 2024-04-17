@@ -1,28 +1,23 @@
 package me.goowen.projectm.utilities.UIBuilder.dataTypes;
 
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class InteractionData {
-    private final Player player;
-    private final ItemStack item;
-    private final int slot;
+    private @Getter final Player PLAYER;
+    private @Getter final ItemStack ITEMSTACK;
+    private @Getter final int SLOT;
 
-    public InteractionData(Player player, ItemStack item, int slot) {
-        this.player = player;
-        this.item = item;
-        this.slot = slot;
-    }
-
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public ItemStack getItem() {
-        return this.item;
-    }
-
-    public int getSlot() {
-        return this.slot;
+    /**
+     * Sets up the interaction data object.
+     * @param player who clicked.
+     * @param itemStack that was clicked.
+     * @param slot that the clicked item was in.
+     */
+    public InteractionData(Player player, ItemStack itemStack, int slot) {
+        this.PLAYER = player;
+        this.ITEMSTACK = itemStack;
+        this.SLOT = slot;
     }
 }

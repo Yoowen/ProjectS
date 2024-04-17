@@ -8,26 +8,46 @@ public class InteractableElement extends Interactable {
     private ItemStack itemStack;
     private Consumer<InteractionData> clickConsumer;
 
+    /**
+     * Sets up this class.
+     * @param itemStack of this intractable Element.
+     * @param clickConsumer of the interactionData.
+     */
     public InteractableElement(ItemStack itemStack, Consumer<InteractionData> clickConsumer) {
         super(itemStack);
         this.clickConsumer = clickConsumer;
     }
 
+    /**
+     * Overrides the accept event from the Intractable class.
+     * @param interactionData of the accept click event.
+     */
     @Override
-    public void acceptEvent(InteractionData data) {
+    public void acceptEvent(InteractionData interactionData) {
         if (this.clickConsumer != null) {
-            this.clickConsumer.accept(data);
+            this.clickConsumer.accept(interactionData);
         }
     }
 
+    /**
+     * Builds an intractableElement.
+     * @param itemStack of the intractableElement.
+     * @return an intractable elementBuilder for this intractableElement.
+     */
     public static InteractableElement.InteractableElementBuilder builder(ItemStack itemStack) {
         return interactableElementBuilder().itemStack(itemStack);
     }
 
+    /**
+     * @return a new intractableElementBuilder.
+     */
     public static InteractableElement.InteractableElementBuilder interactableElementBuilder() {
         return new InteractableElement.InteractableElementBuilder();
     }
 
+    /**
+     * Sets up an IntractableElementBuilder.
+     */
     public static class InteractableElementBuilder {
         private ItemStack itemStack;
         private Consumer<InteractionData> clickConsumer;
