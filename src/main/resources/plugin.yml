@@ -10,11 +10,11 @@ commands:
     permission: projectm.command.chatspy
   gamemode:
     description: gamemode command.
-    aliases: [gm]
+    aliases: [gm, GM]
     permission: projectm.command.gamemode
   speed:
     description: changes the speed of the player
-    aliases: [flyspeed, walkspeed]
+    aliases: [flyspeed, walkspeed, fspeed, wspeed]
     permission: projectm.command.speed
   fly:
     description: changes the players ability to fly.
