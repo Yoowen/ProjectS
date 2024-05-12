@@ -283,7 +283,7 @@ public class PlayerPlotCommand implements CommandExecutor {
                 break;
             case "help":
                 //Check if sender has the required permissions.
-                if (!(sender.hasPermission("projectM.command.plot.reload"))) {
+                if (!(sender.hasPermission("projectM.command.plot.help"))) {
                     sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "You do not have permission to use this command!");
                     return true;
                 }
@@ -293,8 +293,10 @@ public class PlayerPlotCommand implements CommandExecutor {
                     return true;
                 }
 
+                playerHelpMessage(player);
+
             default:
-                sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /plot <option>.");
+                sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /plot help.");
                 break;
         }
         return true;
