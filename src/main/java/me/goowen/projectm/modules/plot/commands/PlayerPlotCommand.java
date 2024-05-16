@@ -292,9 +292,8 @@ public class PlayerPlotCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /gun <option>.");
                     return true;
                 }
-
                 playerHelpMessage(player);
-
+                break;
             default:
                 sender.sendMessage(ChatColor.WHITE + "ꑜ " + ChatColor.of("#b54747") + "Wrong usage, use /plot help.");
                 break;
@@ -331,7 +330,7 @@ public class PlayerPlotCommand implements CommandExecutor {
             return;
         }
 
-        player.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.UNDERLINE + "Crate Item List!");
+        player.sendMessage(ChatColor.WHITE + "" + ChatColor.STRIKETHROUGH + "-----" + ChatColor.RESET + ChatColor.of("#0ea6e9")+ "" + ChatColor.BOLD + " (UNAVAILABLE PLOTS) " + ChatColor.WHITE + "" + ChatColor.STRIKETHROUGH + "-----");
         player.sendMessage(" ");
         int maxOfPage = ((page - 1) * 10) + 9;
         if (maxOfPage > list.size()) {
@@ -348,7 +347,7 @@ public class PlayerPlotCommand implements CommandExecutor {
         String arrowBack = ChatColor.WHITE + "←";
         String pageNumber = ChatColor.WHITE + "Page: " + page + "/" + (int) Math.ceil(list.size() / 10.0) + " ";
         String arrowForward = ChatColor.WHITE + "→";
-        String commandExplanation = " | To view a page type \"" + ChatColor.DARK_AQUA + "/plot unavailablePlots <page>" + ChatColor.WHITE + "\"";
+        String commandExplanation = " | To view a page type \"" + ChatColor.of("#0ea6e9") + "/plot unavailablePlots <page>" + ChatColor.WHITE + "\"";
         TextComponent messageArrowBack = new TextComponent(arrowBack);
         messageArrowBack.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/plot unavailablePlots " + (page - 1)));
         messageArrowBack.addExtra(pageNumber);
