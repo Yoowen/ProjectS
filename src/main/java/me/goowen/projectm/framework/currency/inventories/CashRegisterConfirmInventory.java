@@ -105,18 +105,20 @@ public class CashRegisterConfirmInventory extends FixedInventory {
         onlinePlayer.getInventory().addItem(paymentRequest.getItemStack());
         onlinePlayer.updateInventory();
 
+        paymentRequest.setPaymentSucceeded(true);
+
         player.closeInventory();
     }
 
     @Override
     public void onClose(InventoryCloseEvent event) {
         if (!paymentRequest.isPaymentSucceeded()) {
-            ProjectM.getCurrencyModule().getPaymentRequestList().remove(paymentRequest);
             Player onlinePlayer = paymentRequest.getRequester();
             String paymentFailed = ChatColor.WHITE + "Payment has failed";
             onlinePlayer.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(paymentFailed) + new CharacterReplacementAdapter().addaptForBossbar(paymentFailed)));
             onlinePlayer.getInventory().addItem(paymentRequest.getItemStack());
             onlinePlayer.updateInventory();
         }
+        ProjectM.getCurrencyModule().getPaymentRequestList().remove(paymentRequest);
     }
 }
