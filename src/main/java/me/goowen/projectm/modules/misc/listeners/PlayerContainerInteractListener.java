@@ -57,7 +57,7 @@ public class PlayerContainerInteractListener implements Listener {
         container.setInvisible(true);
         container.setAware(false);
         container.setCanPickupItems(false);
-        container.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0);
+        container.getAttribute(Attribute.MOVEMENT_SPEED).setBaseValue(0);
         container.setCollidable(true);
         container.getEquipment().setHelmet(new ItemStack(Material.DEAD_BRAIN_CORAL));
     }

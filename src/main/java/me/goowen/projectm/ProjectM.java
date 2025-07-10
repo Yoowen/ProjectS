@@ -74,5 +74,4 @@ public class ProjectM extends JavaPlugin {
     {
         System.out.println(prefix + "Plugin succesvol uitgezet, good bye!");
     }
-
 }

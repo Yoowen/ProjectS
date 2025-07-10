@@ -5,13 +5,9 @@ import de.oliver.fancynpcs.api.FancyNpcsPlugin;
 import de.oliver.fancynpcs.api.Npc;
 import de.oliver.fancynpcs.api.NpcData;
 import de.oliver.fancynpcs.api.utils.NpcEquipmentSlot;
-import de.oliver.fancynpcs.api.utils.SkinFetcher;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import me.goowen.projectm.framework.shops.enums.ShopSpeechType;
 import me.goowen.projectm.framework.shops.enums.ShopType;
-import me.goowen.projectm.framework.speech.Speech;
 import org.bukkit.Location;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -42,8 +38,6 @@ public class Shop {
      */
     public void spawnNPC(Location location) {
         NpcData npcData = new NpcData(tagg, uuid, location);
-        SkinFetcher skin = new SkinFetcher(tagg, texture, signature);
-        npcData.setSkin(skin);
         npcData.setTurnToPlayer(true);
         npcData.setDisplayName("<empty>");
 
