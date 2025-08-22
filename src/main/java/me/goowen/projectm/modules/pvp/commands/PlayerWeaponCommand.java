@@ -43,7 +43,7 @@ public class PlayerWeaponCommand implements CommandExecutor {
                 String tagg = args[1];
                 String ammoTagg = args[2];
                 ItemStack gunItem = player.getInventory().getItemInMainHand();
-                ProjectM.getPvpModule().getGunLoader().saveGun(new GunWeapon(tagg, ammoTagg, 6, 1, 30, 4, 60, 40, 4, 2300, "citycraft.loud", 40, "citycraft.reload", 300, 1, true, 3, gunItem));
+                ProjectM.getPvpModule().getGunLoader().saveGun(new GunWeapon(tagg, ammoTagg, 6,  30, 4,  "citycraft.loud", 40, "citycraft.reload", 1, true, gunItem));
                 player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft Gun" + ChatColor.WHITE + "- Gun with the name " + args[1] + " has been created.");
                 break;
             case "get":

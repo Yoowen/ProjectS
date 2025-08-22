@@ -44,7 +44,7 @@ public class PlayerAmmoCommand implements CommandExecutor {
                 String tagg = args[1];
                 int bullets = Integer.parseInt(args[2]);
                 ItemStack ammoItem = player.getInventory().getItemInMainHand();
-                ProjectM.getPvpModule().getAmmoLoader().saveAmmo(new Ammo(tagg, bullets, ammoItem));
+                ProjectM.getPvpModule().getAmmoLoader().saveAmmo(new Ammo(tagg, bullets, ammoItem, 1, 5, 300, 2, 60, 1, 1));
                 player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft Ammo" + ChatColor.WHITE + "- Ammo with the name " + args[1] + " has been created");
                 break;
             case "get":

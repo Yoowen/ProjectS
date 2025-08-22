@@ -64,6 +64,11 @@ public class ItemstackAdapter extends TypeAdapter<ItemStack> {
                     jsonWriter.name("customModelData");
                     jsonWriter.value(itemStack.getItemMeta().getCustomModelData());
                 }
+
+                if (itemStack.getItemMeta().hasItemModel()) {
+                    jsonWriter.name("itemModel");
+                    jsonWriter.value(itemStack.getItemMeta().getItemModel().toString());
+                }
             }
 
             jsonWriter.endObject();
@@ -92,6 +97,7 @@ public class ItemstackAdapter extends TypeAdapter<ItemStack> {
             String customName = null;
             String[] lore = null;
             int customModelData = 0;
+            String itemModel = null;
 
             jsonReader.beginObject();
             while (jsonReader.hasNext()) {
@@ -115,13 +121,16 @@ public class ItemstackAdapter extends TypeAdapter<ItemStack> {
                     case "customModelData":
                         customModelData = jsonReader.nextInt();
                         break;
+                    case "itemModel":
+                        itemModel = jsonReader.nextString();
+                        break;
                     default:
                         jsonReader.skipValue();
                         break;
                 }
             }
             jsonReader.endObject();
-            return new ItemBuilder(type).setAmouth(amount).setName(customName).setDurability((short) durability).setLore(lore).setCustomModelData(customModelData).toItemStack();
+            return new ItemBuilder(type).setAmouth(amount).setName(customName).setDurability((short) durability).setLore(lore).setCustomModelData(customModelData).setItemModel(itemModel).toItemStack();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

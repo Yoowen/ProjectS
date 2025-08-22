@@ -24,6 +24,8 @@ import org.bukkit.inventory.ItemStack;
 import java.time.ZoneId;
 import java.util.TimeZone;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MongodbModule {
     public static @Getter Gson gson;
@@ -55,6 +57,9 @@ public class MongodbModule {
      */
     public void mongoConnect()
     {
+        Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
+        mongoLogger.setLevel(Level.WARNING);
+
         try
         {
             String uri = configModule.getConfig().getConfigConfiguration().getString("mongoURI");

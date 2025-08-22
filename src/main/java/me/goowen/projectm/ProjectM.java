@@ -49,6 +49,7 @@ public class ProjectM extends JavaPlugin {
     {
         this.loadMS = System.currentTimeMillis();
         log.info(prefix + "Gestart met het laden van ProjectM V" + this.getDescription().getVersion() + " by " + this.getDescription().getAuthors().toString().replace("[", "").replace("]", ""));
+
         instance = this;
         configModule = new ConfigModule();
         mongodbModule = new MongodbModule();

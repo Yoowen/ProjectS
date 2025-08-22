@@ -372,6 +372,15 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder setItemModel(String itemModel) {
+        if (itemModel == null) return this;
+        ItemMeta itemMeta = is.getItemMeta();
+        String[] nameSpacedKey = itemModel.split(":");
+        itemMeta.setItemModel(new NamespacedKey(nameSpacedKey[0], nameSpacedKey[1]));
+        is.setItemMeta(itemMeta);
+        return this;
+    }
+
     /**
      * Sets the namespace key of an item to a string.
      * @param key to be set.

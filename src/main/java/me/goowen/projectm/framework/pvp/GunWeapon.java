@@ -32,45 +32,32 @@ public class GunWeapon {
     private String tagg;
     private String ammoTagg;
     private int ammoCapacity;
-    private int roundsPerShot;
     private int maxDurability;
-    private double damage;
-    private int maxRange;
-    private int minRange;
-    private int rangeDamageDecrease;
     private int reloadTime;
     private String sound;
     private int soundDistance;
     private String reloadSound;
-    private int fireRate;
     private double headshotMultiplier;
     private boolean headshotWorksOnPlayers;
-    private int bulletspread;
     private ItemStack item;
 
     //Variable Statistics
     public transient int reloading;
     public transient int currentAmmo;
     public transient int currentDurability;
+    public transient Ammo ammoType;
 
-    public GunWeapon (String tagg, String ammoTagg, int ammoCapacity, int roundsPerShot, int maxDurability, double damage, int maxRange, int minRange, int rangeDamageDecrease, int reloadTime, String sound, int soundDistance, String reloadSound, int fireRate, double headshotMultiplier, boolean headshotWorksOnPlayers, int bulletspread, ItemStack itemStack) {
+    public GunWeapon (String tagg, String ammoTagg, int ammoCapacity, int maxDurability, int reloadTime, String sound, int soundDistance, String reloadSound, double headshotMultiplier, boolean headshotWorksOnPlayers, ItemStack itemStack) {
         this.tagg = tagg;
         this.ammoTagg = ammoTagg;
         this.ammoCapacity = ammoCapacity;
-        this.roundsPerShot = roundsPerShot;
         this.maxDurability = maxDurability;
-        this.damage = damage;
-        this.maxRange = maxRange;
-        this.minRange = minRange;
-        this.rangeDamageDecrease = rangeDamageDecrease;
         this.reloadTime = reloadTime;
         this.sound = sound;
         this.soundDistance = soundDistance;
         this.reloadSound = reloadSound;
-        this.fireRate = fireRate;
         this.headshotMultiplier = headshotMultiplier;
         this.headshotWorksOnPlayers = headshotWorksOnPlayers;
-        this.bulletspread = bulletspread;
         this.item = itemStack;
     }
 
@@ -108,6 +95,12 @@ public class GunWeapon {
         itemMeta.getPersistentDataContainer().set(pvpModule.getDurabilityNamespacedKey(), PersistentDataType.INTEGER, this.currentDurability);
         itemMeta.getPersistentDataContainer().set(pvpModule.getCurrentAmmoNamespacedKey(), PersistentDataType.INTEGER, this.currentAmmo);
         itemMeta.getPersistentDataContainer().set(pvpModule.getReloadingNamespacedKey(), PersistentDataType.INTEGER, 0);
+        if (getAmmoType() != null) {
+            itemMeta.getPersistentDataContainer().set(pvpModule.getAmmoTypeNamespacedKey(), PersistentDataType.STRING, this.ammoType.getTagg());
+        }
+
+
+        itemMeta.setMaxStackSize(1);
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -122,7 +115,8 @@ public class GunWeapon {
         //Gets the ProjectMPlayer object of the player who fired a gun.
         ProjectMPlayer projectMPlayer = ProjectM.getPlayerModule().getPlayerDB(player);
         //checks if the player's fire cooldown is over.
-        if (projectMPlayer.getLastShotFired() + getFireRate() <= System.currentTimeMillis()) {
+        if (ammoType == null && getReloading() == 0 && getCurrentAmmo() == 0 && !player.getScoreboardTags().contains("reloading")) reload(player, slot);
+        if (projectMPlayer.getLastShotFired() + ammoType.getFireRate() <= System.currentTimeMillis()) {
             //checks if the gun has ammo or is reloading.
             if (getCurrentAmmo() != 0 && getReloading() == 0) {
                 //sets the player up to have shot.
@@ -137,7 +131,7 @@ public class GunWeapon {
                 });
 
                 //sets ammo and durability of the gun.
-                setCurrentAmmo(getCurrentAmmo() - getRoundsPerShot());
+                setCurrentAmmo(getCurrentAmmo() - ammoType.getRoundsPerShot());
                 setCurrentDurability(getCurrentDurability() - 1);
 
                 //checks if the gun should break if it has 0 durability.
@@ -156,7 +150,7 @@ public class GunWeapon {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(new CustomBossbarAdapter().getBarLength(ammo) + new CharacterReplacementAdapter().addaptForBossbar(ammo)));
 
                 //calls the methode of shooting the bullet.
-                for (int i=0; i<getRoundsPerShot();i++) {
+                for (int i = 0; i< getAmmoType().getRoundsPerShot(); i++) {
                     Bukkit.getScheduler().runTask(ProjectM.getInstance(), () -> sendBullet(player));
                 }
             } else {
@@ -191,6 +185,7 @@ public class GunWeapon {
                 player.playSound(player.getLocation(), "minecraft:" + reloadSound, 1, 1);
                 player.getInventory().removeItem(ammo.getItemStack());
                 setCurrentAmmo(ammo.getBullets());
+                setAmmoType(ammo);
                 Bukkit.getScheduler().scheduleSyncDelayedTask(ProjectM.getInstance(), () -> {
                     setReloading(0);
                     player.getInventory().setItem(slot, getItemStack());
@@ -227,10 +222,10 @@ public class GunWeapon {
         Vector vector = new Vector();
         double rotX = player.getLocation().getYaw();
         double rotY = player.getLocation().getPitch();
-        vector.setY(-Math.sin(Math.toRadians(rotY))  + (0.005 * getRandomNumber(-getBulletspread(), getBulletspread())));
+        vector.setY(-Math.sin(Math.toRadians(rotY))  + (0.005 * getRandomNumber(-getAmmoType().getBulletspread(), getAmmoType().getBulletspread())));
         double h = Math.cos(Math.toRadians(rotY));
-        vector.setX(-h * Math.sin(Math.toRadians(rotX)) + (0.005 * getRandomNumber(-getBulletspread(), getBulletspread())));
-        vector.setZ(h * Math.cos(Math.toRadians(rotX)) + (0.005 * getRandomNumber(-getBulletspread(), getBulletspread())));
+        vector.setX(-h * Math.sin(Math.toRadians(rotX)) + (0.005 * getRandomNumber(-getAmmoType().getBulletspread(), getAmmoType().getBulletspread())));
+        vector.setZ(h * Math.cos(Math.toRadians(rotX)) + (0.005 * getRandomNumber(-getAmmoType().getBulletspread(), getAmmoType().getBulletspread())));
         bullet.setVelocity(vector.multiply(4));
     }
 
@@ -239,6 +234,6 @@ public class GunWeapon {
     }
 
     public GunWeapon clone() {
-        return new GunWeapon(tagg, ammoTagg, ammoCapacity, roundsPerShot, maxDurability, damage, maxRange, minRange, rangeDamageDecrease, reloadTime, sound, soundDistance, reloadSound, fireRate, headshotMultiplier, headshotWorksOnPlayers, bulletspread, item);
+        return new GunWeapon(tagg, ammoTagg, ammoCapacity, maxDurability, reloadTime, sound, soundDistance, reloadSound, headshotMultiplier, headshotWorksOnPlayers, item);
     }
 }

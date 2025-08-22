@@ -27,17 +27,17 @@ public class EntityDamageByEntityListener implements Listener {
                     Player player = (Player) projectile.getShooter();
                     Entity entity = event.getEntity();
                     GunWeapon gunWeapon = ProjectM.getPvpModule().getGun(projectile.getCustomName()).get();
-                    double damage = gunWeapon.getDamage();
+                    double damage = gunWeapon.getAmmoType().getDamage();
                     double distance = player.getLocation().distance(entity.getLocation());
 
                     //handles the damage decrease when hit at a too long range.
-                    if (distance > gunWeapon.getMinRange() && distance <= gunWeapon.getMaxRange()) {
-                        double damageDecrease = ((distance - gunWeapon.getMinRange()) / (gunWeapon.getMaxRange() - gunWeapon.getMinRange())) * gunWeapon.getRangeDamageDecrease();
+                    if (distance > gunWeapon.getAmmoType().getMinRange() && distance <= gunWeapon.getAmmoType().getMaxRange()) {
+                        double damageDecrease = ((distance - gunWeapon.getAmmoType().getMinRange()) / (gunWeapon.getAmmoType().getMaxRange() - gunWeapon.getAmmoType().getMinRange())) * gunWeapon.getAmmoType().getRangeDamageDecrease();
                         damage = damage - damageDecrease;
                     }
 
                     //sets the damage to half a heart if the bullet hits outside its maximum range.
-                    if (distance > gunWeapon.getMaxRange()) {
+                    if (distance > gunWeapon.getAmmoType().getMaxRange()) {
                         event.setDamage(1);
                         return;
                     }

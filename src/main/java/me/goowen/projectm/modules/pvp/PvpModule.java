@@ -34,6 +34,7 @@ public class PvpModule
     private @Getter final NamespacedKey durabilityNamespacedKey = new NamespacedKey(projectM, "durability");
     private @Getter final NamespacedKey currentAmmoNamespacedKey = new NamespacedKey(projectM, "currentAmmo");
     private @Getter final NamespacedKey reloadingNamespacedKey = new NamespacedKey(projectM, "reloading");
+    private @Getter final NamespacedKey ammoTypeNamespacedKey = new NamespacedKey(projectM, "ammoType");
 
     public PvpModule()
     {
@@ -66,6 +67,9 @@ public class PvpModule
                 gun.setCurrentDurability(itemMeta.getPersistentDataContainer().get(durabilityNamespacedKey, PersistentDataType.INTEGER));
                 gun.setCurrentAmmo(itemMeta.getPersistentDataContainer().get(currentAmmoNamespacedKey, PersistentDataType.INTEGER));
                 gun.setReloading(itemMeta.getPersistentDataContainer().get(reloadingNamespacedKey, PersistentDataType.INTEGER));
+                if (itemMeta.getPersistentDataContainer().has(ammoTypeNamespacedKey)) {
+                    gun.setAmmoType(getAmmo(itemMeta.getPersistentDataContainer().get(ammoTypeNamespacedKey, PersistentDataType.STRING)).get());
+                }
                 return gun;
             }
         } catch (NullPointerException e) {

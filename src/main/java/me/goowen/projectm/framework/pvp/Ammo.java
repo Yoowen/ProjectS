@@ -21,10 +21,31 @@ public class Ammo {
     private int bullets;
     private ItemStack ammoItem;
 
-    public Ammo(String tagg, int bullets, ItemStack ammoItem) {
+    //Shot info
+    private int roundsPerShot;
+    private double damage;
+
+    private int fireRate;
+    private int bulletspread;
+
+    private int maxRange;
+    private int minRange;
+    private int rangeDamageDecrease;
+
+    public Ammo(String tagg, int bullets, ItemStack ammoItem, int roundsPerShot, double damage, int fireRate, int bulletspread, int maxRange, int minRange, int rangeDamageDecrease) {
         this.tagg = tagg;
         this.bullets = bullets;
         this.ammoItem = ammoItem;
+
+        this.roundsPerShot = roundsPerShot;
+        this.damage = damage;
+
+        this.fireRate = fireRate;
+        this.bulletspread = bulletspread;
+
+        this.maxRange = maxRange;
+        this.minRange = minRange;
+        this.rangeDamageDecrease = rangeDamageDecrease;
     }
 
     /**
