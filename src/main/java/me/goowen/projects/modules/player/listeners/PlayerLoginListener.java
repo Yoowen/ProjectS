@@ -1,0 +1,98 @@
+package me.goowen.projects.modules.player.listeners;
+
+import me.goowen.projects.ProjectS;
+import me.goowen.projects.framework.mongoDB.callbacks.LoadingPlayer;
+import me.goowen.projects.framework.player.repositories.ProjectMPlayer;
+import me.goowen.projects.framework.player.prefix.PrefixType;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerJoinEvent;
+
+public class PlayerLoginListener implements Listener
+{
+
+    /**
+     * Laat de Speler in vanuit de database wanneer de speler klaar is met inladen roept hij het AfterLogin Event aan.
+     * @param event
+     */
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onLogin(PlayerJoinEvent event)
+    {
+        ProjectS.getPlayerModule().getPlayerLoader().load(event.getPlayer(), new LoadingPlayer() {
+            @Override
+            public void waiting() {
+
+            }
+
+            @Override
+            public void fetching() {
+
+            }
+
+            @Override
+            public void done(ProjectMPlayer projectMPlayer) {
+                loadPrefix(event.getPlayer());
+                loadStaffChat(event.getPlayer());
+                projectMPlayer.setLastShotFired(System.currentTimeMillis());
+                ProjectS.getTimeModule().addPlayerTimer(event.getPlayer(), ProjectS.getTimeModule().calculateTime());
+            }
+
+            @Override
+            public void error(String err) {
+
+            }
+
+            @Override
+            public void welcome() {
+
+            }
+        });
+
+        event.setJoinMessage(null);
+
+        //sends a join message to everyone online who has the permission to see the join logs.
+        for (Player other : Bukkit.getOnlinePlayers()) {
+            if (other.hasPermission("OP.Log")) {
+                other.sendMessage(ChatColor.GRAY + "[OP-LOG] " + ChatColor.WHITE + event.getPlayer().getName() + " has joined the server");
+            }
+        }
+    }
+
+    /**
+     * loads in the prefix of the player based on what permission group they own.
+     * @param player whose prefix will be checked.
+     */
+    public void loadPrefix(Player player) {
+        ProjectMPlayer projectMPlayer = ProjectS.getPlayerModule().getPlayerDB(player);
+        String playerPrefix = ChatColor.GRAY + PrefixType.PLAYER.getPrefix();
+
+        if (player.hasPermission("projectM.prefix.builder")) {
+            playerPrefix = PrefixType.BUILDER.getPrefix();
+        }
+
+        if (player.hasPermission("projectM.prefix.mod")) {
+            playerPrefix = PrefixType.MOD.getPrefix();
+        }
+
+        if (player.hasPermission("projectM.prefix.project-lead")) {
+            playerPrefix = PrefixType.PROJECT_LEAD.getPrefix();
+        }
+
+        player.setPlayerListName(ChatColor.WHITE + playerPrefix + ChatColor.WHITE + " | " + player.getName());
+        projectMPlayer.setPrefix(ChatColor.WHITE + playerPrefix + ChatColor.WHITE + " | " + player.getName());
+
+    }
+
+    public void loadStaffChat(Player player) {
+        if (player.hasPermission("projectM.command.staffchat")) {
+            ProjectMPlayer projectMPlayer = ProjectS.getPlayerModule().getPlayerDB(player);
+            projectMPlayer.setStaffChat(true);
+            player.sendMessage(ChatColor.of("#0ea6e9") + "Citycraft " + ChatColor.WHITE + "- Staffchat has been activated.");
+        }
+    }
+}
+
