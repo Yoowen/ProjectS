@@ -1,6 +1,6 @@
 name: ProjectM
 version: ${project.version}
-main: me.goowen.projectm.ProjectM
+main: me.goowen.projects.ProjectS
 api-version: 1.16
 authors: [goowen]
 description: This is a test build for a project currently under the title projectM

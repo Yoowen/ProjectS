@@ -1,5 +1,6 @@
 mongoURI: "mongodb+srv://Archantion:fWEMbkuLmPeSkM5f@projectmdevelopment.6fb1c8n.mongodb.net/test"
 lockdown: true
-chat-distance: 50
-crate-amount: 3
-cash-register-distance: 10
+chat-distance: 500
+expand-per-day: 2
+shrink-on-death: 8
+min-border-size: 32

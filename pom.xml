@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.goowen.projectM</groupId>
-    <artifactId>projectM</artifactId>
+    <groupId>me.goowen.projectS</groupId>
+    <artifactId>projectS</artifactId>
     <version>0.1</version>
     <packaging>jar</packaging>
 
     <name>ProjectM</name>
 
-    <description>This is a test build for a project currently under the title projectM</description>
+    <description>This is a test build for a project currently under the title projectS</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
